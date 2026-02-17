@@ -1,0 +1,74 @@
+# Docker Compose for Institute Management System
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  database:
+    image: postgres:15-alpine
+    container_name: institute_db
+    environment:
+      POSTGRES_USER: institute_user
+      POSTGRES_PASSWORD: institute_pass
+      POSTGRES_DB: institute_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - institute_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U institute_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: institute_backend
+    environment:
+      - DATABASE_URL=postgresql://institute_user:institute_pass@database:5432/institute_db
+      - SECRET_KEY=your-secret-key-change-in-production
+      - ALLOWED_ORIGINS=http://localhost:3000,http://frontend:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - institute_network
+    volumes:
+      - ./backend:/app
+      - backend_uploads:/app/uploads
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./coaching
+      dockerfile: Dockerfile
+    container_name: institute_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - institute_network
+    volumes:
+      - ./coaching:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
+  backend_uploads:
+
+networks:
+  institute_network:
+    driver: bridge

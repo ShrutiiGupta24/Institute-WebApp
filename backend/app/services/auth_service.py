@@ -12,12 +12,13 @@ class AuthService:
     
     def register_user(self, user_data: UserCreate) -> User:
         """Register a new user"""
+        normalized_email = user_data.email.strip().lower()
         # Validate email
-        if not validate_email(user_data.email):
+        if not validate_email(normalized_email):
             raise ValueError("Invalid email format")
         
         # Check if user already exists
-        existing_user = self.db.query(User).filter(User.email == user_data.email).first()
+        existing_user = self.db.query(User).filter(User.email == normalized_email).first()
         if existing_user:
             raise ValueError("Email already registered")
         
@@ -32,7 +33,7 @@ class AuthService:
         
         # Create user
         user = User(
-            email=user_data.email,
+            email=normalized_email,
             username=user_data.username,
             full_name=user_data.full_name,
             phone=user_data.phone,
@@ -49,7 +50,8 @@ class AuthService:
     
     def login(self, email: str, password: str) -> Token:
         """Authenticate user and return token"""
-        user = self.db.query(User).filter(User.email == email).first()
+        normalized_email = email.strip().lower()
+        user = self.db.query(User).filter(User.email == normalized_email).first()
         
         if not user or not verify_password(password, user.password_hash):
             return None

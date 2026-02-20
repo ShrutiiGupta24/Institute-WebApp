@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     
     # CORS
-    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:3001,http://localhost:3002"
+    ALLOWED_ORIGINS: str = "https://institute-web-app-dusky.vercel.app,http://localhost:3000,http://localhost:3001,http://localhost:3002"
     
     @property
     def cors_origins(self) -> List[str]:

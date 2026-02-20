@@ -1,36 +1,40 @@
 import React, { useState, useEffect } from "react";
 import teacherPhoto from "../assets/Sudhanshu Shekhar.png";
+import shashiPhoto from "../assets/Shashi Kumar.jpeg";
+import amitPhoto from "../assets/Amit Sharma.jpeg";
+import nagendraPhoto from "../assets/Nagendra Kumar.jpeg";
+import vaishaliPhoto from "../assets/Vaishali Sharma.jpeg";
 
 const teachers = [
 	{
 		name: "Sudhanshu Shekhar",
 		subject: "Mathematics",
-		bio: "PhD in Mathematics, 16+ years of teaching experience.",
+		bio: "27+ years of teaching experience.",
 		image: teacherPhoto,
 	},
 	{
-		name: "Ms. R. Verma",
+		name: "Shashi Kumar",
 		subject: "Physics",
-		bio: "MSc in Physics,7 years of teaching experience.",
-		image: "https://randomuser.me/api/portraits/women/44.jpg",
+		bio: "20+ years of teaching experience.",
+		image: shashiPhoto,
 	},
 	{
-		name: "Mr. S. Gupta",
+		name: "Amit Sharma",
+		subject: "Accounts",
+		bio: "15+ years of experience in coaching.",
+		image: amitPhoto,
+	},
+	{
+		name: "Nagendra Kumar",
 		subject: "Chemistry",
-		bio: "MSc in Chemistry, 8 years of experience in coaching.",
-		image: "https://randomuser.me/api/portraits/men/65.jpg",
+		bio: "7+ years of teaching experience.",
+		image: nagendraPhoto,
 	},
 	{
-		name: "Ms. P. Mehra",
-		subject: "Biology",
-		bio: "MSc in Biology, 7 years of teaching experience.",
-		image: "https://randomuser.me/api/portraits/women/68.jpg",
-	},
-	{
-		name: "Mr. V. Singh",
-		subject: "English",
-		bio: "MA in English, 9 years of experience in coaching.",
-		image: "https://randomuser.me/api/portraits/men/77.jpg",
+		name: "Vaishali Sharma",
+		subject: "English and SST",
+		bio: "5+ years of experience",
+		image: vaishaliPhoto,
 	},
 ];
 

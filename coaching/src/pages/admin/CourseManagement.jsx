@@ -40,7 +40,29 @@ const CourseManagement = () => {
   }, []);
 
   // Define all classes to display
-  const allClasses = ["9", "10", "11", "12", "JEE Main/Advance", "CUET", "B.com(P/H)"];
+  const allClasses = ["9", "10", "11", "12", "JEE Main/Advance", "CUET", "B.com(P/H)", "Other"];
+
+  const normalizeClassCategory = (category) => {
+    if (!category) return null;
+    const normalized = category.toString().trim();
+    const map = {
+      "CLASS_9": "9",
+      "CLASS9": "9",
+      "CLASS_10": "10",
+      "CLASS10": "10",
+      "CLASS_11": "11",
+      "CLASS11": "11",
+      "CLASS_12": "12",
+      "CLASS12": "12",
+      "JEE_MAIN_ADVANCE": "JEE Main/Advance",
+      "JEE": "JEE Main/Advance",
+      "CUET": "CUET",
+      "B_COM_PH": "B.com(P/H)",
+      "BCOM_PH": "B.com(P/H)"
+    };
+    const upperKey = normalized.toUpperCase();
+    return map[upperKey] || normalized;
+  };
 
   // Fetch data from API on component mount
   const fetchAllData = useCallback(async () => {
@@ -60,11 +82,11 @@ const CourseManagement = () => {
       
       // Group courses by class/category
       coursesFromDb.forEach(course => {
-        // Use class_category if available, otherwise try to infer from name
-        let className = course.class_category || course.name;
+        // Use normalized class_category if available, otherwise try to infer from name
+        let className = normalizeClassCategory(course.class_category) || course.name;
         
-        // If no class_category and name doesn't match, try to infer
-        if (!course.class_category && !allClasses.includes(className)) {
+        // If class name still not recognized, try to infer from course title
+        if (!allClasses.includes(className)) {
           const lowerName = course.name.toLowerCase();
           if (lowerName.includes('12') || lowerName.includes('twelve')) {
             className = "12";

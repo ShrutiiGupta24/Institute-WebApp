@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaClock, FaUserGraduate, FaChalkboardTeacher, FaPlus, FaUsers, FaSearch, FaTrash } from "react-icons/fa";
 import { getAllBatches, getAllCourses, getAllTeachers, getAllStudents, createBatch, updateBatch, deleteBatch } from "../../services/adminService";
+import { useAdminData } from "../../store/adminDataContext";
 
 // Define all classes to display (moved outside component to avoid re-creation on every render)
 const ALL_CLASSES = ["9", "10", "11", "12", "JEE Main/Advance", "CUET", "B.com(P/H)"];
@@ -16,6 +17,7 @@ const BatchManagement = () => {
   } catch (e) {}
   const adminName = location.state?.name || user.full_name || "Admin";
   
+  const { refreshBatches } = useAdminData();
   const [selectedClass, setSelectedClass] = useState(null);
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [selectedBatch, setSelectedBatch] = useState(null);
@@ -349,6 +351,13 @@ const BatchManagement = () => {
       
       // Refetch data to update UI
       await fetchAllData();
+      if (refreshBatches) {
+        try {
+          await refreshBatches();
+        } catch (refreshErr) {
+          console.warn("Failed to refresh global batches:", refreshErr);
+        }
+      }
       
       // Close modal and reset form
       setShowCreateBatchModal(false);
@@ -408,6 +417,13 @@ const BatchManagement = () => {
       
       // Refetch data to update UI
       await fetchAllData();
+      if (refreshBatches) {
+        try {
+          await refreshBatches();
+        } catch (refreshErr) {
+          console.warn("Failed to refresh global batches:", refreshErr);
+        }
+      }
       
       // Close modal and reset form
       setShowEditBatchModal(false);
@@ -438,6 +454,13 @@ const BatchManagement = () => {
       
       // Refetch data to update UI
       await fetchAllData();
+      if (refreshBatches) {
+        try {
+          await refreshBatches();
+        } catch (refreshErr) {
+          console.warn("Failed to refresh global batches:", refreshErr);
+        }
+      }
     } catch (err) {
       console.error("Error deleting batch:", err);
       alert("Failed to delete batch. Please try again. " + (err.response?.data?.detail || err.message));

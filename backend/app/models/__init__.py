@@ -7,6 +7,7 @@ from app.models.attendance import Attendance
 from app.models.fee import Fee, PaymentStatus, PaymentMethod
 from app.models.study_material import StudyMaterial
 from app.models.test import Test, TestResult
+from app.models.notification import Notification
 
 __all__ = [
     "User",
@@ -23,4 +24,5 @@ __all__ = [
     "StudyMaterial",
     "Test",
     "TestResult",
+    "Notification",
 ]

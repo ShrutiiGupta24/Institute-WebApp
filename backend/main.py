@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from app.routes import auth, admin, student, teacher, payment
+from app.routes import auth, admin, student, teacher, payment, notification, contact
 from app.database import engine, Base
 from app.config import settings
 import logging
@@ -52,6 +52,8 @@ app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(student.router, prefix="/api/student", tags=["Student"])
 app.include_router(teacher.router, prefix="/api/teacher", tags=["Teacher"])
 app.include_router(payment.router, prefix="/api/payment", tags=["Payment"])
+app.include_router(notification.router, prefix="/api/notifications", tags=["Notifications"])
+app.include_router(contact.router, prefix="/api/contact", tags=["Contact"])
 
 if __name__ == "__main__":
     import uvicorn

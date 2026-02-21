@@ -30,6 +30,9 @@ export const NotificationProvider = ({ children }) => {
     }
   }, []);
 
+  const normalizedRole = currentUser?.role ? currentUser.role.toLowerCase() : null;
+  const isAdmin = normalizedRole === "admin";
+
   const lastSeenKey = useMemo(() => {
     const role = currentUser?.role ? currentUser.role.toLowerCase() : "guest";
     return `notifications:lastSeen:${role}`;
@@ -67,22 +70,34 @@ export const NotificationProvider = ({ children }) => {
     }, 5000);
   }, [dismissToast]);
 
+  const filterByAudience = useCallback((items) => {
+    if (isAdmin) {
+      return items;
+    }
+    const allowedAudiences = new Set(["all"]);
+    if (normalizedRole) {
+      allowedAudiences.add(normalizedRole);
+    }
+    return items.filter((item) => allowedAudiences.has((item.audience || "all").toLowerCase()));
+  }, [isAdmin, normalizedRole]);
+
   const fetchNotifications = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await getNotifications();
       const items = response.data || [];
-      setNotifications(items);
-      const unread = computeUnreadCount(items);
-      maybeShowToast(items, unread);
+      const scopedItems = filterByAudience(items);
+      setNotifications(scopedItems);
+      const unread = computeUnreadCount(scopedItems);
+      maybeShowToast(scopedItems, unread);
     } catch (err) {
       console.error("Failed to fetch notifications", err);
       setError(err.response?.data?.detail || "Unable to load notifications");
     } finally {
       setLoading(false);
     }
-  }, [computeUnreadCount, maybeShowToast]);
+  }, [computeUnreadCount, filterByAudience, maybeShowToast]);
 
   const markAllAsRead = useCallback(() => {
     const timestamp = new Date().toISOString();

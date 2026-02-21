@@ -170,54 +170,91 @@ const NotificationCenter = ({ canManage = false, accentColor = "#f97316", varian
             Broadcast announcements and review incoming contact queries.
           </p>
           <div style={{
-            display: "flex",
-            gap: "0.6rem",
-            alignItems: "center",
-            marginBottom: "1.2rem"
-          }}>
-            <span style={{
-              background: "#f9fafb",
-              borderRadius: "999px",
-              padding: "0.4rem 1rem",
-              fontWeight: 600,
-              color: "#111827"
-            }}>
-              Unread · {unreadCount}
-            </span>
-            {latestNotification && (
-              <span style={{
-                color: "#6b7280",
-                fontSize: "0.85rem"
-              }}>
-                Updated {formatDate(latestNotification.created_at)}
-              </span>
-            )}
-          </div>
-          <div style={{
-            background: "#f9fafb",
-            borderRadius: "12px",
-            padding: "1rem",
             width: "100%",
-            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
-            marginBottom: "1.5rem"
+            gap: "1rem",
+            marginBottom: "1.2rem"
           }}>
-            {loading ? (
-              <p style={{ color: "#6b7280", margin: 0 }}>Loading notifications…</p>
-            ) : error ? (
-              <p style={{ color: "#b91c1c", margin: 0 }}>{error}</p>
-            ) : latestNotification ? (
-              <>
-                <strong style={{ color: "#111827" }}>{latestNotification.title}</strong>
-                <p style={{ color: "#374151", margin: "0.4rem 0 0" }}>
-                  {truncateText(latestNotification.message, 130)}
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "1rem",
+              flexWrap: "wrap",
+              width: "100%",
+              textAlign: "left"
+            }}>
+              <div style={{ flex: "1 1 40%" }}>
+                <p style={{
+                  margin: 0,
+                  color: "#6b7280",
+                  fontSize: "0.95rem"
+                }}>
+                  Stay updated on institute-wide announcements.
                 </p>
-              </>
-            ) : (
-              <p style={{ color: "#6b7280", margin: 0 }}>No notifications shared yet.</p>
-            )}
+              </div>
+              <div style={{
+                flex: "1 1 45%",
+                background: "#f9fafb",
+                borderRadius: "12px",
+                padding: "1rem",
+                minHeight: "96px"
+              }}>
+                <p style={{
+                  margin: 0,
+                  color: "#6b7280",
+                  fontSize: "0.85rem"
+                }}>
+                  Latest update
+                </p>
+                {loading ? (
+                  <p style={{ color: "#6b7280", marginTop: "0.4rem" }}>Loading…</p>
+                ) : error ? (
+                  <p style={{ color: "#b91c1c", marginTop: "0.4rem" }}>{error}</p>
+                ) : latestNotification ? (
+                  <>
+                    <strong
+                      style={{
+                        color: "#111827",
+                        display: "block",
+                        marginTop: "0.4rem"
+                      }}
+                    >
+                      {truncateText(latestNotification.title, 60)}
+                    </strong>
+                    <small style={{ color: "#6b7280" }}>
+                      {formatDate(latestNotification.created_at)}
+                    </small>
+                  </>
+                ) : (
+                  <p style={{ color: "#6b7280", marginTop: "0.4rem" }}>No notifications yet.</p>
+                )}
+              </div>
+            </div>
+            <div style={{
+              display: "flex",
+              gap: "0.6rem",
+              flexWrap: "wrap",
+              justifyContent: "center"
+            }}>
+              <span style={{
+                background: "#f9fafb",
+                borderRadius: "999px",
+                padding: "0.4rem 1rem",
+                fontWeight: 600,
+                color: "#111827"
+              }}>
+                Unread · {unreadCount}
+              </span>
+              {latestNotification && (
+                <span style={{
+                  color: "#6b7280",
+                  fontSize: "0.85rem"
+                }}>
+                  Updated {formatDate(latestNotification.created_at)}
+                </span>
+              )}
+            </div>
           </div>
           <button
             onClick={handleOpen}

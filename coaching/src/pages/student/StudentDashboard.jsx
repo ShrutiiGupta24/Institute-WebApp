@@ -160,10 +160,9 @@ const StudentDashboard = () => {
               </div>
             </Link>
           ))}
-        </div>
-
-        <div style={{ marginTop: "3rem" }}>
-          <NotificationCenter accentColor="#06b6d4" />
+          <div style={{ height: "100%" }}>
+            <NotificationCenter accentColor="#06b6d4" variant="card" />
+          </div>
         </div>
       </div>
     </div>

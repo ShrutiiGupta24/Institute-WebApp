@@ -205,10 +205,9 @@ const TeacherDashboard = () => {
               </div>
             </Link>
           ))}
-        </div>
-
-        <div style={{ marginTop: "2rem" }}>
-          <NotificationCenter accentColor="#10b981" />
+          <div style={{ height: "100%", width: "100%" }}>
+            <NotificationCenter accentColor="#10b981" variant="card" />
+          </div>
         </div>
       </div>
     </div>

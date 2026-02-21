@@ -1,9 +1,9 @@
-from pydantic import BaseModel, Field, constr
+from pydantic import BaseModel, Field
 
 
 class ContactSubmissionRequest(BaseModel):
-    name: constr(min_length=2, max_length=120)  # type: ignore[var-annotated]
-    phone: constr(regex=r"^\d{10}$")  # type: ignore[var-annotated]
+    name: str = Field(..., min_length=2, max_length=120)
+    phone: str = Field(..., min_length=10, max_length=10, pattern=r"^\d{10}$")
     class_name: str = Field(..., alias="className", max_length=100)
 
     class Config:

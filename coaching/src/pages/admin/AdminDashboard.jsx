@@ -199,6 +199,9 @@ const AdminDashboard = () => {
               </div>
             </Link>
           ))}
+          <div style={{ height: "100%" }}>
+            <NotificationCenter canManage accentColor="#f97316" variant="card" />
+          </div>
         </div>
 
         {/* Quick Stats Section */}
@@ -309,9 +312,6 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div style={{ marginTop: "3rem" }}>
-          <NotificationCenter canManage accentColor="#f97316" />
-        </div>
       </div>
     </div>
   );

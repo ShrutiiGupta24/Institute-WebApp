@@ -16,7 +16,14 @@ const formatDate = (value) => {
   return date.toLocaleString();
 };
 
-const NotificationCenter = ({ canManage = false, accentColor = "#f97316" }) => {
+const truncateText = (text, max = 110) => {
+  if (!text) {
+    return "";
+  }
+  return text.length > max ? `${text.slice(0, max)}...` : text;
+};
+
+const NotificationCenter = ({ canManage = false, accentColor = "#f97316", variant = "panel" }) => {
   const {
     notifications,
     loading,
@@ -30,8 +37,11 @@ const NotificationCenter = ({ canManage = false, accentColor = "#f97316" }) => {
   const [editingId, setEditingId] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
+  const [cardHovered, setCardHovered] = useState(false);
+  const isCardLayout = variant === "card";
 
   const recentNotifications = useMemo(() => notifications.slice(0, 50), [notifications]);
+  const latestNotification = recentNotifications[0];
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -108,68 +118,129 @@ const NotificationCenter = ({ canManage = false, accentColor = "#f97316" }) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", height: isCardLayout ? "100%" : "auto" }}>
       <NotificationToast />
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: "16px",
-          padding: "1.5rem",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          position: "relative"
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-            <div style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              background: `linear-gradient(135deg, ${accentColor}, ${accentColor}dd)`,
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "1.5rem"
+      {isCardLayout ? (
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: "14px",
+            padding: "2rem",
+            boxShadow: cardHovered ? "0 15px 40px rgba(0,0,0,0.3)" : "0 10px 30px rgba(0,0,0,0.2)",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            transition: "all 0.3s",
+            transform: cardHovered ? "translateY(-10px)" : "translateY(0)"
+          }}
+          onMouseEnter={() => setCardHovered(true)}
+          onMouseLeave={() => setCardHovered(false)}
+        >
+          <div style={{
+            width: "70px",
+            height: "70px",
+            background: `linear-gradient(135deg, ${accentColor}, ${accentColor}dd)`,
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: "1.3rem",
+            fontSize: "1.8rem",
+            color: "#fff",
+            boxShadow: `0 8px 20px ${accentColor}40`
+          }}>
+            <FaBell />
+          </div>
+          <h3 style={{
+            fontSize: "1.35rem",
+            color: "#333",
+            marginBottom: "0.4rem",
+            fontWeight: "bold"
+          }}>
+            Notifications
+          </h3>
+          <p style={{
+            color: "#666",
+            fontSize: "0.95rem",
+            lineHeight: 1.5,
+            marginBottom: "1.2rem"
+          }}>
+            Broadcast announcements and review incoming contact queries.
+          </p>
+          <div style={{
+            display: "flex",
+            gap: "0.6rem",
+            alignItems: "center",
+            marginBottom: "1.2rem"
+          }}>
+            <span style={{
+              background: "#f9fafb",
+              borderRadius: "999px",
+              padding: "0.4rem 1rem",
+              fontWeight: 600,
+              color: "#111827"
             }}>
-              <FaBell />
-            </div>
-            <div>
-              <h3 style={{ margin: 0, color: "#1f2937" }}>Notifications</h3>
-              <p style={{ margin: 0, color: "#6b7280" }}>Latest announcements from Admin</p>
-            </div>
+              Unread · {unreadCount}
+            </span>
+            {latestNotification && (
+              <span style={{
+                color: "#6b7280",
+                fontSize: "0.85rem"
+              }}>
+                Updated {formatDate(latestNotification.created_at)}
+              </span>
+            )}
+          </div>
+          <div style={{
+            background: "#f9fafb",
+            borderRadius: "12px",
+            padding: "1rem",
+            width: "100%",
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            marginBottom: "1.5rem"
+          }}>
+            {loading ? (
+              <p style={{ color: "#6b7280", margin: 0 }}>Loading notifications…</p>
+            ) : error ? (
+              <p style={{ color: "#b91c1c", margin: 0 }}>{error}</p>
+            ) : latestNotification ? (
+              <>
+                <strong style={{ color: "#111827" }}>{latestNotification.title}</strong>
+                <p style={{ color: "#374151", margin: "0.4rem 0 0" }}>
+                  {truncateText(latestNotification.message, 130)}
+                </p>
+              </>
+            ) : (
+              <p style={{ color: "#6b7280", margin: 0 }}>No notifications shared yet.</p>
+            )}
           </div>
           <button
             onClick={handleOpen}
             style={{
-              position: "relative",
               border: "none",
               background: accentColor,
               color: "#fff",
               borderRadius: "999px",
-              padding: "0.6rem 1.5rem",
+              padding: "0.8rem 2rem",
               cursor: "pointer",
               fontWeight: 600,
               boxShadow: `0 8px 20px ${accentColor}55`
             }}
           >
-            View
+            View center
             {unreadCount > 0 && (
               <span
                 style={{
-                  position: "absolute",
-                  top: "-8px",
-                  right: "-8px",
+                  marginLeft: "0.6rem",
                   background: "#ef4444",
-                  color: "#fff",
                   borderRadius: "999px",
-                  padding: "2px 8px",
-                  fontSize: "0.75rem",
-                  minWidth: "24px",
-                  textAlign: "center"
+                  padding: "0.15rem 0.65rem",
+                  fontSize: "0.8rem"
                 }}
               >
                 {unreadCount}
@@ -177,37 +248,104 @@ const NotificationCenter = ({ canManage = false, accentColor = "#f97316" }) => {
             )}
           </button>
         </div>
-        <div>
-          {loading ? (
-            <p style={{ color: "#6b7280", margin: 0 }}>Loading notifications...</p>
-          ) : error ? (
-            <p style={{ color: "#ef4444", margin: 0 }}>{error}</p>
-          ) : recentNotifications.length === 0 ? (
-            <p style={{ color: "#6b7280", margin: 0 }}>No notifications in the last year.</p>
-          ) : (
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-              {recentNotifications.slice(0, 3).map((notification) => (
-                <li
-                  key={notification.id}
+      ) : (
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: "16px",
+            padding: "1.5rem",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            position: "relative"
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+              <div style={{
+                width: "48px",
+                height: "48px",
+                borderRadius: "50%",
+                background: `linear-gradient(135deg, ${accentColor}, ${accentColor}dd)`,
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.5rem"
+              }}>
+                <FaBell />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, color: "#1f2937" }}>Notifications</h3>
+                <p style={{ margin: 0, color: "#6b7280" }}>Latest announcements from Admin</p>
+              </div>
+            </div>
+            <button
+              onClick={handleOpen}
+              style={{
+                position: "relative",
+                border: "none",
+                background: accentColor,
+                color: "#fff",
+                borderRadius: "999px",
+                padding: "0.6rem 1.5rem",
+                cursor: "pointer",
+                fontWeight: 600,
+                boxShadow: `0 8px 20px ${accentColor}55`
+              }}
+            >
+              View
+              {unreadCount > 0 && (
+                <span
                   style={{
-                    background: "#f9fafb",
-                    borderRadius: "12px",
-                    padding: "0.9rem 1rem"
+                    position: "absolute",
+                    top: "-8px",
+                    right: "-8px",
+                    background: "#ef4444",
+                    color: "#fff",
+                    borderRadius: "999px",
+                    padding: "2px 8px",
+                    fontSize: "0.75rem",
+                    minWidth: "24px",
+                    textAlign: "center"
                   }}
                 >
-                  <strong style={{ display: "block", color: "#111827" }}>{notification.title}</strong>
-                  <p style={{ margin: "0.3rem 0", color: "#4b5563" }}>
-                    {notification.message.length > 110
-                      ? `${notification.message.slice(0, 110)}...`
-                      : notification.message}
-                  </p>
-                  <small style={{ color: "#9ca3af" }}>{formatDate(notification.created_at)}</small>
-                </li>
-              ))}
-            </ul>
-          )}
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+          </div>
+          <div>
+            {loading ? (
+              <p style={{ color: "#6b7280", margin: 0 }}>Loading notifications...</p>
+            ) : error ? (
+              <p style={{ color: "#ef4444", margin: 0 }}>{error}</p>
+            ) : recentNotifications.length === 0 ? (
+              <p style={{ color: "#6b7280", margin: 0 }}>No notifications in the last year.</p>
+            ) : (
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+                {recentNotifications.slice(0, 3).map((notification) => (
+                  <li
+                    key={notification.id}
+                    style={{
+                      background: "#f9fafb",
+                      borderRadius: "12px",
+                      padding: "0.9rem 1rem"
+                    }}
+                  >
+                    <strong style={{ display: "block", color: "#111827" }}>{notification.title}</strong>
+                    <p style={{ margin: "0.3rem 0", color: "#4b5563" }}>
+                      {truncateText(notification.message)}
+                    </p>
+                    <small style={{ color: "#9ca3af" }}>{formatDate(notification.created_at)}</small>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {isOpen && (
         <div

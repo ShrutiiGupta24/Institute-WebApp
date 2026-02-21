@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AdminDataProvider } from "./store/adminDataContext";
+import { NotificationProvider } from "./store/notificationContext";
 import Header from "./components/Header";
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
@@ -32,7 +33,8 @@ import TestsAssignments from "./pages/teacher/TestsAssignments";
 import AssignedBatches from "./pages/teacher/AssignedBatches";
 
 const App = () => (
-    <AdminDataProvider>
+  <AdminDataProvider>
+    <NotificationProvider>
       <Router>
         <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Header />
@@ -71,7 +73,8 @@ const App = () => (
           <Footer />
         </div>
       </Router>
-    </AdminDataProvider>
+    </NotificationProvider>
+  </AdminDataProvider>
 );
 
 export default App;

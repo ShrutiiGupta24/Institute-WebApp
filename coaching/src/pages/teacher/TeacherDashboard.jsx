@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaCalendarCheck, FaClipboardList, FaBook, FaFileAlt, FaLayerGroup } from "react-icons/fa";
+import NotificationCenter from "../../components/notifications/NotificationCenter";
 
 const TeacherDashboard = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -204,6 +205,10 @@ const TeacherDashboard = () => {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div style={{ marginTop: "2rem" }}>
+          <NotificationCenter accentColor="#10b981" />
         </div>
       </div>
     </div>

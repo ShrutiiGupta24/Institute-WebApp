@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { submitContactQuery } from "../services/contactService";
 
 const classOptions = [
   "Class 9",
@@ -66,6 +67,8 @@ const buttonStyle = {
 const ContactUs = ({ isHomePage = false }) => {
   const [form, setForm] = useState({ name: "", phone: "", className: "" });
   const [phoneError, setPhoneError] = useState("");
+  const [status, setStatus] = useState({ type: null, message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,15 +84,30 @@ const ContactUs = ({ isHomePage = false }) => {
     return /^\d{10}$/.test(phone);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validatePhone(form.phone)) {
       setPhoneError("Phone number must be 10 digits.");
       return;
     }
     setPhoneError("");
-    alert(`Submitted! Name: ${form.name}, Phone: ${form.phone}, Class: ${form.className}`);
-    // Here you can add logic to send the form data to your backend
+    setStatus({ type: null, message: "" });
+
+    try {
+      setIsSubmitting(true);
+      await submitContactQuery({
+        name: form.name.trim(),
+        phone: form.phone,
+        className: form.className,
+      });
+      setStatus({ type: "success", message: "Thanks! We will reach out shortly." });
+      setForm({ name: "", phone: "", className: "" });
+    } catch (error) {
+      const detail = error.response?.data?.detail || "Unable to submit right now. Please try again.";
+      setStatus({ type: "error", message: detail });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -123,21 +141,42 @@ const ContactUs = ({ isHomePage = false }) => {
             ))}
           </select>
         </div>
+        {status.message && (
+          <div
+            style={{
+              marginBottom: 12,
+              padding: "0.8rem",
+              borderRadius: 8,
+              background: status.type === "success" ? "#ecfdf5" : "#fef2f2",
+              color: status.type === "success" ? "#047857" : "#b91c1c",
+              fontWeight: 600,
+            }}
+          >
+            {status.message}
+          </div>
+        )}
         <button 
           type="submit" 
-          style={buttonStyle}
+          style={{
+            ...buttonStyle,
+            opacity: isSubmitting ? 0.7 : 1,
+            cursor: isSubmitting ? "not-allowed" : "pointer",
+          }}
+          disabled={isSubmitting}
           onMouseOver={(e) => {
+            if (isSubmitting) return;
             e.currentTarget.style.opacity = "0.9";
             e.currentTarget.style.transform = "translateY(-2px)";
             e.currentTarget.style.boxShadow = "0 6px 20px rgba(102,126,234,0.4)";
           }}
           onMouseOut={(e) => {
+            if (isSubmitting) return;
             e.currentTarget.style.opacity = "1";
             e.currentTarget.style.transform = "translateY(0)";
             e.currentTarget.style.boxShadow = "0 4px 15px rgba(102,126,234,0.3)";
           }}
         >
-          Submit
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>

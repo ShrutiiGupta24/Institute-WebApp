@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaCalendarCheck, FaBook, FaChartLine, FaMoneyBillWave, FaClipboardList } from "react-icons/fa";
+import NotificationCenter from "../../components/notifications/NotificationCenter";
 
 const StudentDashboard = () => {
   const location = useLocation();
@@ -159,6 +160,10 @@ const StudentDashboard = () => {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div style={{ marginTop: "3rem" }}>
+          <NotificationCenter accentColor="#06b6d4" />
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import image1 from "../assets/WhatsApp Image 2026-01-26 at 1.03.36 PM.jpeg";
 import image2 from "../assets/WhatsApp Image 2026-01-26 at 1.04.50 PM.jpeg";
 import image3 from "../assets/WhatsApp Image 2026-01-26 at 1.11.50 PM.jpeg";
 import image4 from "../assets/WhatsApp Image 2026-01-26 at 1.06.37 PM.jpeg";
+import image5 from "../assets/Image1.jpeg";
 
 // Adjust position for each image:
 // Options: "center", "top", "bottom", "left", "right", "top center", "bottom center"
@@ -13,7 +14,8 @@ const carouselImages = [
   { src: image1, position: "top" },
   { src: image2, position: "center" },
   { src: image3, position: "top" },
-  { src: image4, position: "center" }
+  { src: image4, position: "center" },
+  { src: image5, position: "center" }
 ];
 
 const HomePage = () => {

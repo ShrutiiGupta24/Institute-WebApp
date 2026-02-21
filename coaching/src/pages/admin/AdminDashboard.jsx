@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaArrowLeft,FaBook, FaMoneyBillWave, FaUserGraduate, FaChalkboardTeacher, FaLayerGroup, FaChartBar } from "react-icons/fa";
 import { useAdminData } from "../../store/adminDataContext";
+import NotificationCenter from "../../components/notifications/NotificationCenter";
 
 const AdminDashboard = () => {
   const location = useLocation();
@@ -306,6 +307,10 @@ const AdminDashboard = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div style={{ marginTop: "3rem" }}>
+          <NotificationCenter canManage accentColor="#f97316" />
         </div>
       </div>
     </div>

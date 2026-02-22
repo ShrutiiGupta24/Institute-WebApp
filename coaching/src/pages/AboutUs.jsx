@@ -1,7 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+const statBlocks = [
+  { label: "Learners Mentored", value: "2,500+", accent: "#f472b6" },
+  { label: "Boards & Entrances", value: "6 Streams", accent: "#38bdf8" },
+  { label: "Session Rhythm", value: "90 mins", accent: "#fbbf24" }
+];
+
+const mentorHighlights = [
+  {
+    title: "Concept Studios",
+    description: "Immersive math + science labs where every theorem gets a tactile story.",
+    gradient: "linear-gradient(135deg, #f472b6, #ec4899)"
+  },
+  {
+    title: "Wellness Pods",
+    description: "Mindfulness corners, focus playlists, and hydration rituals before every mock.",
+    gradient: "linear-gradient(135deg, #38bdf8, #2563eb)"
+  },
+  {
+    title: "Parent Huddles",
+    description: "Structured dashboards + bi-weekly check-ins to keep families empowered.",
+    gradient: "linear-gradient(135deg, #34d399, #059669)"
+  }
+];
+
+const timelineMilestones = [
+  {
+    year: "2010",
+    title: "The Foundation",
+    detail: "Sudhanshu Shekhar Sir opens a 20-seat math studio focused on concept clarity."
+  },
+  {
+    year: "2014",
+    title: "STEM Cohorts",
+    detail: "Physics + Chemistry labs launch, making integrated science prep a reality."
+  },
+  {
+    year: "2018",
+    title: "Digital Dashboards",
+    detail: "Parent and student portals debut with analytics-driven progress mapping."
+  },
+  {
+    year: "2023",
+    title: "Holistic Campus",
+    detail: "Career studio, wellness pods, and CUET + commerce streams join the ecosystem."
+  }
+];
+
+const valueChips = [
+  "Small cohorts (1:20)",
+  "Adaptive practice engine",
+  "Olympiad + NTSE clubs",
+  "Mentor office hours"
+];
+
+const culturePillars = [
+  { title: "Discipline", detail: "Morning accountability rituals keep every learner on tempo." },
+  { title: "Clarity", detail: "Whiteboard storytelling + tactile aids for every tricky concept." },
+  { title: "Care", detail: "Weekly reflection circles so minds stay confident, not burnt out." }
+];
 
 const AboutUs = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(typeof window === "undefined" ? true : window.innerWidth <= 768);
 
   useEffect(() => {
     const handleResize = () => {
@@ -12,94 +73,329 @@ const AboutUs = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+    const fontId = "about-page-fonts";
+    if (document.getElementById(fontId)) {
+      return;
+    }
+    const link = document.createElement("link");
+    link.id = fontId;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap";
+    document.head.appendChild(link);
+  }, []);
+
   return (
-    <div style={{
-      minHeight: "calc(100vh - 160px)",
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      paddingTop: "2rem",
-      paddingBottom: "2rem",
-      paddingLeft: isMobile ? "1rem" : "2rem",
-      paddingRight: isMobile ? "1rem" : "2rem",
-      width: "100%",
-      overflowX: "hidden"
-    }}>
-      <div style={{ maxWidth: "1000px", margin: "0 auto", width: "100%" }}>
-        <h2 style={{ 
-          textAlign: "center", 
-          color: "#fff", 
-          fontSize: isMobile ? "2rem" : "2.5rem",
-          marginBottom: "3rem",
-          textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-          fontWeight: "700"
-        }}>About Us</h2>
-      
-      <div style={{
-        background: "#fff",
-        borderRadius: "16px",
-        padding: isMobile ? "1.5rem" : "2.5rem",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-        marginBottom: "2rem",
-        width: "100%",
-        boxSizing: "border-box"
-      }}>
-        <h3 style={{ color: "#667eea", marginBottom: "1rem", fontSize: isMobile ? "1.5rem" : "1.8rem" }}>Welcome to Coaching Institute!</h3>
-        
-        <p style={{ lineHeight: "1.8", color: "#333", fontSize: "1.05rem", marginBottom: "1.5rem" }}>
-          With 15 years of excellence in education, our institute is dedicated to strengthening the academic foundation of students from Class 9th to 12th. We focus on clear concepts, disciplined learning, and consistent performance to prepare students for board exams and future professional success.
-        </p>
+    <div
+      style={{
+        minHeight: "calc(100vh - 160px)",
+        backgroundImage:
+          "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.14), transparent 45%), " +
+          "radial-gradient(circle at 80% 0%, rgba(255,255,255,0.08), transparent 40%), " +
+          "linear-gradient(135deg, #0f172a 0%, #312e81 55%, #7c3aed 100%)",
+        padding: isMobile ? "2rem 1rem 3rem" : "3rem 2rem 4rem",
+        fontFamily: "'Space Grotesk', 'Trebuchet MS', sans-serif",
+        color: "#f8fafc"
+      }}
+    >
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        {/* Hero */}
+        <section
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.1fr) minmax(0,0.9fr)",
+            gap: isMobile ? "1.5rem" : "2.5rem",
+            marginBottom: "3rem"
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(15,23,42,0.55)",
+              borderRadius: "28px",
+              padding: isMobile ? "1.75rem" : "2.5rem",
+              border: "1px solid rgba(255,255,255,0.12)",
+              boxShadow: "0 35px 70px rgba(15,23,42,0.4)",
+              backdropFilter: "blur(18px)"
+            }}
+          >
+            <p style={{ letterSpacing: "0.3em", textTransform: "uppercase", fontSize: "0.8rem", color: "#a5b4fc", marginBottom: "1rem" }}>
+              Pinnacle Institute • Since 2010
+            </p>
+            <h1
+              style={{
+                fontFamily: "'Playfair Display', 'Georgia', serif",
+                fontSize: "clamp(2rem, 4.5vw, 3.4rem)",
+                marginBottom: "1rem",
+                lineHeight: 1.2
+              }}
+            >
+              A finishing school for clarity, courage, and character.
+            </h1>
+            <p style={{ fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(248,250,252,0.9)", marginBottom: "1.5rem" }}>
+              From disciplined board prep to mindful entrance coaching, we engineer learning journeys that keep students curious, consistent, and career-ready.
+            </p>
 
-        <p style={{ lineHeight: "1.8", color: "#333", fontSize: "1.05rem", marginBottom: "1.5rem" }}>
-          The institute is led by Sudhanshu Shekhar Sir, an experienced Mathematics educator with over 30 years of expertise. His effective teaching methods and deep subject knowledge have guided hundreds of students toward successful careers as Engineers, Doctors, Chartered Accountants (CA), and other professionals. He is also a respected author of multiple academic books.
-        </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "1.5rem" }}>
+              {valueChips.map((chip) => (
+                <span
+                  key={chip}
+                  style={{
+                    padding: "0.45rem 0.9rem",
+                    borderRadius: "999px",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    background: "rgba(255,255,255,0.08)",
+                    fontSize: "0.9rem",
+                    color: "#e0e7ff"
+                  }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
 
-        <p style={{ lineHeight: "1.8", color: "#333", fontSize: "1.05rem", marginBottom: "1.5rem" }}>
-          Our approach combines conceptual clarity, logical thinking, and personal mentoring to ensure every student gains confidence and mastery in their subjects. Alongside academics, we emphasize discipline, values, and life skills, helping students grow into focused, responsible individuals.
-        </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+              <Link
+                to="/contact-us"
+                style={{
+                  background: "linear-gradient(120deg, #c084fc, #7c3aed)",
+                  color: "#fff",
+                  padding: "0.85rem 1.75rem",
+                  borderRadius: "999px",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  boxShadow: "0 20px 40px rgba(124,58,237,0.35)",
+                  transition: "transform 0.3s"
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+                onMouseOut={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+              >
+                Start a Conversation →
+              </Link>
+              <Link
+                to="/about-teachers"
+                style={{
+                  padding: "0.85rem 1.75rem",
+                  borderRadius: "999px",
+                  border: "1px solid rgba(255,255,255,0.5)",
+                  color: "#f8fafc",
+                  textDecoration: "none",
+                  fontWeight: 600
+                }}
+              >
+                Meet Our Mentors
+              </Link>
+            </div>
+          </div>
 
-        <p style={{ lineHeight: "1.8", color: "#333", fontSize: "1.05rem" }}>
-          We provide a supportive and motivating learning environment where students are guided to achieve excellence—academically and beyond.
-        </p>
-      </div>
+          <div
+            style={{
+              background: "linear-gradient(165deg, #f8fafc 0%, #dbeafe 40%, #c7d2fe 100%)",
+              borderRadius: "28px",
+              padding: isMobile ? "1.75rem" : "2.5rem",
+              color: "#0f172a",
+              boxShadow: "0 30px 70px rgba(30,64,175,0.25)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem"
+            }}
+          >
+            {statBlocks.map((stat) => (
+              <div
+                key={stat.label}
+                style={{
+                  borderRadius: "18px",
+                  border: `1px solid ${stat.accent}44`,
+                  padding: "1.2rem 1.4rem",
+                  background: "rgba(255,255,255,0.9)",
+                  boxShadow: "0 20px 35px rgba(15,23,42,0.08)"
+                }}
+              >
+                <p style={{ fontSize: "2.2rem", fontWeight: 700, color: stat.accent, margin: 0 }}>{stat.value}</p>
+                <p style={{ margin: "0.3rem 0 0", color: "#475569", fontWeight: 600 }}>{stat.label}</p>
+              </div>
+            ))}
 
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(400px, 1fr))", 
-        gap: isMobile ? "1.5rem" : "2rem",
-        width: "100%"
-      }}>
-        <div style={{
-          background: "#fff",
-          borderRadius: "16px",
-          padding: isMobile ? "1.5rem" : "2rem",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-          borderTop: "4px solid #667eea",
-          width: "100%",
-          boxSizing: "border-box"
-        }}>
-          <h3 style={{ color: "#667eea", marginBottom: "1rem", fontSize: isMobile ? "1.4rem" : "1.6rem" }}>Our Vision</h3>
-          <p style={{ lineHeight: "1.8", color: "#333", fontSize: isMobile ? "1rem" : "1.05rem" }}>
-            To be a center of excellence in education that empowers students with strong knowledge, confidence, and values, enabling them to succeed as Engineers, Doctors, CAs, and future leaders.
-          </p>
-        </div>
+            <div
+              style={{
+                borderRadius: "20px",
+                padding: "1.2rem 1.4rem",
+                background: "#0f172a",
+                color: "#f8fafc",
+                boxShadow: "0 25px 50px rgba(15,23,42,0.4)"
+              }}
+            >
+              <p style={{ margin: 0, fontSize: "0.8rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#a5b4fc" }}>Lead Mentor</p>
+              <h3 style={{ margin: "0.5rem 0 0", fontSize: "1.4rem", fontFamily: "'Playfair Display', 'Georgia', serif" }}>Sudhanshu Shekhar</h3>
+              <p style={{ margin: "0.4rem 0 0", color: "rgba(248,250,252,0.8)", lineHeight: 1.6 }}>
+                30+ years of mathematics storytelling, author of beloved board prep titles, and mentor to thousands of achievers.
+              </p>
+            </div>
+          </div>
+        </section>
 
-        <div style={{
-          background: "#fff",
-          borderRadius: "16px",
-          padding: isMobile ? "1.5rem" : "2rem",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-          borderTop: "4px solid #764ba2",
-          width: "100%",
-          boxSizing: "border-box"
-        }}>
-          <h3 style={{ color: "#764ba2", marginBottom: "1rem", fontSize: isMobile ? "1.4rem" : "1.6rem" }}>Our Mission</h3>
-          <ul style={{ lineHeight: "2", color: "#333", fontSize: isMobile ? "1rem" : "1.05rem", paddingLeft: "1.5rem" }}>
-            <li>To build strong academic foundations with clear concepts</li>
-            <li>To mentor students with discipline, ethics, and confidence</li>
-            <li>To prepare students for academic excellence and competitive careers</li>
-            <li>To inspire students to dream big and work consistently toward success</li>
-          </ul>
-        </div>
-      </div>
+        {/* Mentorship Highlights */}
+        <section style={{ marginBottom: "3rem" }}>
+          <h2
+            style={{
+              textAlign: "center",
+              fontFamily: "'Playfair Display', 'Georgia', serif",
+              fontSize: "clamp(1.8rem, 4vw, 2.7rem)",
+              marginBottom: "1.5rem"
+            }}
+          >
+            Why parents call us their academic studio.
+          </h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+              gap: isMobile ? "1.2rem" : "1.5rem"
+            }}
+          >
+            {mentorHighlights.map((card) => (
+              <div
+                key={card.title}
+                style={{
+                  padding: "2rem",
+                  borderRadius: "24px",
+                  color: "#fff",
+                  background: card.gradient,
+                  boxShadow: "0 25px 55px rgba(0,0,0,0.25)",
+                  minHeight: "220px"
+                }}
+              >
+                <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 700 }}>{card.title}</h3>
+                <p style={{ marginTop: "0.8rem", lineHeight: 1.7 }}>{card.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Culture Grid */}
+        <section
+          style={{
+            background: "rgba(255,255,255,0.08)",
+            borderRadius: "32px",
+            padding: isMobile ? "2rem" : "2.8rem",
+            border: "1px solid rgba(255,255,255,0.12)",
+            boxShadow: "0 35px 60px rgba(15,23,42,0.35)",
+            backdropFilter: "blur(14px)",
+            marginBottom: "3rem"
+          }}
+        >
+          <h3 style={{ margin: 0, fontSize: "1.7rem", marginBottom: "1.5rem", fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+            The culture code
+          </h3>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+              gap: "1.25rem"
+            }}
+          >
+            {culturePillars.map((pillar) => (
+              <div
+                key={pillar.title}
+                style={{
+                  padding: "1.5rem",
+                  borderRadius: "18px",
+                  border: "1px solid rgba(255,255,255,0.25)",
+                  background: "rgba(15,23,42,0.35)"
+                }}
+              >
+                <p style={{ letterSpacing: "0.25em", fontSize: "0.75rem", textTransform: "uppercase", color: "#a5b4fc", margin: 0 }}>
+                  {pillar.title}
+                </p>
+                <p style={{ margin: "0.6rem 0 0", lineHeight: 1.7 }}>{pillar.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Timeline */}
+        <section style={{ marginBottom: "3.5rem" }}>
+          <h3
+            style={{
+              textAlign: "center",
+              fontFamily: "'Playfair Display', 'Georgia', serif",
+              fontSize: "clamp(1.8rem,4vw,2.6rem)",
+              marginBottom: "2rem"
+            }}
+          >
+            Our evolution
+          </h3>
+          <div
+            style={{
+              position: "relative",
+              paddingLeft: isMobile ? "1.5rem" : "2.5rem",
+              borderLeft: "2px solid rgba(255,255,255,0.3)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem"
+            }}
+          >
+            {timelineMilestones.map((item) => (
+              <div key={item.year} style={{ position: "relative", paddingLeft: "1.2rem" }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: "-1.5rem",
+                    top: 6,
+                    width: "14px",
+                    height: "14px",
+                    borderRadius: "50%",
+                    background: "#c084fc",
+                    border: "2px solid #fff"
+                  }}
+                />
+                <p style={{ margin: 0, letterSpacing: "0.25em", textTransform: "uppercase", fontSize: "0.75rem", color: "#a5b4fc" }}>
+                  {item.year}
+                </p>
+                <h4 style={{ margin: "0.2rem 0", fontSize: "1.3rem" }}>{item.title}</h4>
+                <p style={{ margin: 0, color: "rgba(248,250,252,0.85)", lineHeight: 1.7 }}>{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section
+          style={{
+            borderRadius: "30px",
+            padding: isMobile ? "2rem" : "2.8rem",
+            background: "linear-gradient(135deg, #fca5a5, #fb7185, #f472b6)",
+            color: "#0f172a",
+            boxShadow: "0 35px 60px rgba(0,0,0,0.25)",
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: isMobile ? "flex-start" : "center",
+            justifyContent: "space-between",
+            gap: "1rem"
+          }}
+        >
+          <div>
+            <p style={{ margin: 0, letterSpacing: "0.3em", textTransform: "uppercase", fontSize: "0.75rem" }}>Take the next step</p>
+            <h3 style={{ margin: "0.5rem 0 0", fontSize: "1.8rem", fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+              Visit the campus or schedule a discovery call.
+            </h3>
+          </div>
+          <Link
+            to="/contact-us"
+            style={{
+              background: "#0f172a",
+              color: "#fff",
+              padding: "0.9rem 1.8rem",
+              borderRadius: "999px",
+              textDecoration: "none",
+              fontWeight: 600
+            }}
+          >
+            Plan a visit →
+          </Link>
+        </section>
       </div>
     </div>
   );

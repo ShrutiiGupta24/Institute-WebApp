@@ -9,6 +9,7 @@ class NotificationBase(BaseModel):
     audience: str = Field(default="all", max_length=50)
     expires_at: Optional[datetime] = None
     is_active: bool = True
+    recipient_roles: Optional[list[str]] = None
 
 
 class NotificationCreate(NotificationBase):

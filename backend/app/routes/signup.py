@@ -51,6 +51,7 @@ async def submit_signup_request(payload: SignupSubmissionRequest, db: Session = 
         message="\n".join(message_lines),
         audience="admin",
         is_active=True,
+        recipient_roles=[UserRole.ADMIN.value],
     )
 
     notification_service.create_notification(notification_payload, created_by=admin_user.id)

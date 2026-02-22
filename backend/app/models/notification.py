@@ -12,6 +12,7 @@ class Notification(Base):
     message = Column(Text, nullable=False)
     audience = Column(String(50), default="all", nullable=False)
     is_active = Column(Boolean, default=True)
+    recipient_roles = Column(Text, nullable=True)
     expires_at = Column(DateTime(timezone=True), nullable=True)
     created_by = Column(Integer, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

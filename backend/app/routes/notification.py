@@ -21,7 +21,8 @@ async def list_notifications(
     db: Session = Depends(get_db)
 ):
     service = NotificationService(db)
-    return service.get_recent_notifications()
+    role_filter = current_user.role.value if current_user.role else None
+    return service.get_recent_notifications(role_filter=role_filter)
 
 
 @router.post("", response_model=NotificationResponse, status_code=status.HTTP_201_CREATED)

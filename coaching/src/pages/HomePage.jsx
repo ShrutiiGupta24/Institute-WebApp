@@ -27,6 +27,7 @@ const carouselImages = [
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const carouselHeight = isMobile ? 280 : 480;
 
   useEffect(() => {
     const handleResize = () => {
@@ -100,7 +101,7 @@ const HomePage = () => {
           position: "relative", 
           width: "100%", 
           maxWidth: "100%",
-          height: isMobile ? "220px" : "360px",
+          height: `${carouselHeight}px`,
           background: "#000",
           overflow: "hidden",
           borderRadius: "16px",

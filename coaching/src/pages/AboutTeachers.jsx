@@ -9,35 +9,35 @@ const teachers = [
 	{
 		name: "Sudhanshu Shekhar",
 		subject: "Mathematics Director",
-		bio: "30+ years of math mentorship • Author • Board paper setter • IIT Kharagpur alumnus.",
+		bio: "30+ years of math mentorship • Author",
 		image: teacherPhoto,
 		color: "#c084fc"
 	},
 	{
 		name: "Shashi Kumar",
 		subject: "Physics Lead",
-		bio: "20+ years mapping kinematics to modern experiments.",
+		bio: "20+ years of experience",
 		image: shashiPhoto,
 		color: "#38bdf8"
 	},
 	{
 		name: "Amit Sharma",
 		subject: "Accounts & Commerce",
-		bio: "Chartered Accountant guiding commerce toppers for 15+ years.",
+		bio: "15+ years of experience",
 		image: amitPhoto,
 		color: "#fbbf24"
 	},
 	{
 		name: "Nagendra Kumar",
 		subject: "Chemistry Coach",
-		bio: "Lab-first pedagogy with 7+ years of NEET/JEE batches.",
+		bio: "7+ years of experience",
 		image: nagendraPhoto,
 		color: "#34d399"
 	},
 	{
 		name: "Vaishali Sharma",
 		subject: "English & SST",
-		bio: "Story-driven humanities mentor, 5+ years.",
+		bio: "5+ years of experience",
 		image: vaishaliPhoto,
 		color: "#f472b6"
 	}

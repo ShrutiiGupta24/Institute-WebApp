@@ -27,8 +27,8 @@ const carouselImages = [
 ];
 
 const highlightStats = [
-  { label: "Students Guided", value: "2,500+", accent: "#f472b6" },
-  { label: "Board Toppers", value: "180+", accent: "#38bdf8" }
+  { label: "Students Guided", value: "10,000+", accent: "#f472b6" },
+  { label: "Merit Holders", value: "4500+", accent: "#38bdf8" }
 ];
 
 const uspChips = [
@@ -46,12 +46,6 @@ const pillarCards = [
     gradient: "linear-gradient(135deg, #f472b6, #ec4899)"
   },
   {
-    title: "Holistic Readiness",
-    description: "STEM labs, Olympiad clubs, and soft-skills pods that keep learners interview-ready.",
-    icon: FaMedal,
-    gradient: "linear-gradient(135deg, #38bdf8, #2563eb)"
-  },
-  {
     title: "Result Rituals",
     description: "Weekly diagnostics + recovery plans so every test becomes a launchpad, not a setback.",
     icon: FaStar,
@@ -61,7 +55,6 @@ const pillarCards = [
 
 const excellenceBadges = [
   { title: "15+ Years", detail: "Legacy of trust", emoji: "⏳", colors: ["#fde68a", "#f59e0b"] },
-  { title: "Smart Campus", detail: "ERP enabled", emoji: "💡", colors: ["#bfdbfe", "#60a5fa"] },
   { title: "Parent Lounge", detail: "Transparent updates", emoji: "🤝", colors: ["#fecdd3", "#fb7185"] },
   { title: "Career Studio", detail: "NEET + JEE mentoring", emoji: "🚀", colors: ["#c7d2fe", "#7c3aed"] }
 ];
@@ -580,7 +573,7 @@ const HomePage = () => {
             marginBottom: "2rem"
           }}
         >
-          A Living, Breathing Campus Culture
+          A Living, Breathing Culture
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: "1.2rem" }}>
           {excellenceBadges.map((badge) => (

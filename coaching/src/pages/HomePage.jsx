@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaWhatsapp, FaFacebook, FaYoutube, FaInstagram, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaYoutube, FaInstagram, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChalkboardTeacher, FaMedal, FaStar } from "react-icons/fa";
 import image1 from "../assets/WhatsApp Image 2026-01-26 at 1.03.36 PM.jpeg";
 import image2 from "../assets/WhatsApp Image 2026-01-26 at 1.04.50 PM.jpeg";
 import image3 from "../assets/WhatsApp Image 2026-01-26 at 1.11.50 PM.jpeg";
@@ -24,10 +24,66 @@ const carouselImages = [
   { src: image8, mobilePosition: "center", desktopPosition: "center" }
 ];
 
+const highlightStats = [
+  { label: "Students Guided", value: "2,500+", accent: "#f472b6" },
+  { label: "Board Toppers", value: "180+", accent: "#38bdf8" },
+  { label: "Scholarships Won", value: "₹1.2 Cr", accent: "#34d399" }
+];
+
+const uspChips = [
+  "Small Batches (1:20)",
+  "Adaptive Practice Sheets",
+  "Bi-weekly Parent Huddles",
+  "Dedicated Doubt Rooms"
+];
+
+const pillarCards = [
+  {
+    title: "Signature Mentorship",
+    description: "Personalised study journeys crafted by subject experts who track every milestone.",
+    icon: FaChalkboardTeacher,
+    gradient: "linear-gradient(135deg, #f472b6, #ec4899)"
+  },
+  {
+    title: "Holistic Readiness",
+    description: "STEM labs, Olympiad clubs, and soft-skills pods that keep learners interview-ready.",
+    icon: FaMedal,
+    gradient: "linear-gradient(135deg, #38bdf8, #2563eb)"
+  },
+  {
+    title: "Result Rituals",
+    description: "Weekly diagnostics + recovery plans so every test becomes a launchpad, not a setback.",
+    icon: FaStar,
+    gradient: "linear-gradient(135deg, #34d399, #059669)"
+  }
+];
+
+const excellenceBadges = [
+  { title: "15+ Years", detail: "Legacy of trust", emoji: "⏳", colors: ["#fde68a", "#f59e0b"] },
+  { title: "Smart Campus", detail: "ERP enabled", emoji: "💡", colors: ["#bfdbfe", "#60a5fa"] },
+  { title: "Parent Lounge", detail: "Transparent updates", emoji: "🤝", colors: ["#fecdd3", "#fb7185"] },
+  { title: "Career Studio", detail: "NEET + JEE mentoring", emoji: "🚀", colors: ["#c7d2fe", "#7c3aed"] }
+];
+
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const carouselHeight = isMobile ? 280 : 480;
+
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+    const fontLinkId = "homepage-fonts";
+    if (document.getElementById(fontLinkId)) {
+      return;
+    }
+    const link = document.createElement("link");
+    link.id = fontLinkId;
+    link.rel = "stylesheet";
+    link.href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap";
+    document.head.appendChild(link);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -88,11 +144,16 @@ const HomePage = () => {
       style={{
         scrollBehavior: "smooth",
         minHeight: "calc(100vh - 160px)",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        backgroundImage:
+          "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.14), transparent 45%), " +
+          "radial-gradient(circle at 80% 0%, rgba(255,255,255,0.08), transparent 40%), " +
+          "linear-gradient(135deg, #0f172a 0%, #312e81 55%, #7c3aed 100%)",
         paddingTop: "2rem",
         paddingBottom: "2rem",
         width: "100%",
-        overflowX: "hidden"
+        overflowX: "hidden",
+        fontFamily: "'Space Grotesk', 'Trebuchet MS', sans-serif",
+        color: "#0f172a"
       }}
     >
       {/* Carousel Section */}
@@ -207,27 +268,135 @@ const HomePage = () => {
 
       {/* Welcome Section */}
       <section style={{ padding: "3rem 1rem", width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center" }}>
-          <h1 style={{ 
-            color: "#fff", 
-            fontSize: "clamp(1.8rem, 5vw, 3rem)", 
-            marginBottom: "1.5rem",
-            textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-            fontWeight: "bold"
-          }}>
-            Welcome to Pinnacle Institute
-          </h1>
-          <p style={{ 
-            color: "#fff", 
-            fontSize: "clamp(1rem, 3vw, 1.3rem)", 
-            opacity: 0.95,
-            lineHeight: "1.8",
-            maxWidth: "800px",
-            margin: "0 auto",
-            padding: "0 1rem"
-          }}>
-            Building excellence through 15 years of dedicated education for Class 9th to 12th students
-          </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0,1.2fr) minmax(0,0.8fr)",
+            gap: "1.75rem"
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(15,23,42,0.55)",
+              borderRadius: "24px",
+              padding: isMobile ? "1.75rem" : "2.5rem",
+              border: "1px solid rgba(255,255,255,0.12)",
+              boxShadow: "0 35px 80px rgba(15,23,42,0.4)",
+              backdropFilter: "blur(16px)",
+              color: "#f8fafc"
+            }}
+          >
+            <p
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: "0.3em",
+                fontSize: "0.85rem",
+                color: "#a5b4fc",
+                marginBottom: "1rem"
+              }}
+            >
+              Pinnacle Institute • Since 2010
+            </p>
+            <h1
+              style={{
+                fontFamily: "'Playfair Display', 'Georgia', serif",
+                fontSize: "clamp(2rem, 5vw, 3.3rem)",
+                marginBottom: "1rem",
+                lineHeight: 1.2
+              }}
+            >
+              Where consistent practice meets confident outcomes.
+            </h1>
+            <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "rgba(248,250,252,0.9)", marginBottom: "1.75rem" }}>
+              From foundational clarity in grades 9-10 to high-stakes board and entrance mentoring in grades 11-12, our
+              studio classrooms blend disciplined academics, mindful wellness, and real-world readiness.
+            </p>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "1.5rem" }}>
+              {uspChips.map((chip) => (
+                <span
+                  key={chip}
+                  style={{
+                    padding: "0.45rem 0.9rem",
+                    borderRadius: "999px",
+                    background: "rgba(255,255,255,0.12)",
+                    border: "1px solid rgba(255,255,255,0.18)",
+                    fontSize: "0.9rem",
+                    color: "#e0e7ff"
+                  }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+              <Link
+                to="/about-us"
+                style={{
+                  background: "linear-gradient(120deg, #c084fc, #7c3aed)",
+                  color: "#fff",
+                  padding: "0.85rem 1.8rem",
+                  borderRadius: "999px",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  boxShadow: "0 20px 40px rgba(124,58,237,0.35)",
+                  transition: "transform 0.3s"
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+                onMouseOut={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+              >
+                Explore Our Story →
+              </Link>
+              <Link
+                to="/contact-us"
+                style={{
+                  padding: "0.85rem 1.8rem",
+                  borderRadius: "999px",
+                  border: "1px solid rgba(255,255,255,0.4)",
+                  color: "#f8fafc",
+                  textDecoration: "none",
+                  fontWeight: 600
+                }}
+              >
+                Talk to an Academic Coach
+              </Link>
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: "linear-gradient(165deg, #f8fafc 0%, #dbeafe 40%, #c7d2fe 100%)",
+              borderRadius: "24px",
+              padding: isMobile ? "1.75rem" : "2.5rem",
+              boxShadow: "0 30px 70px rgba(30,64,175,0.25)",
+              color: "#0f172a"
+            }}
+          >
+            <p style={{ fontSize: "0.95rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#475569", marginBottom: "1.25rem" }}>
+              Impact In Numbers
+            </p>
+            <h3 style={{ fontFamily: "'Playfair Display', 'Georgia', serif", fontSize: "1.8rem", marginBottom: "1.5rem", lineHeight: 1.3 }}>
+              Parents trust us because progress is visible, structured, and celebrated every week.
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0,1fr))", gap: "1rem" }}>
+              {highlightStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  style={{
+                    background: "#fff",
+                    borderRadius: "18px",
+                    padding: "1.2rem 1rem",
+                    border: `1px solid ${stat.accent}33`,
+                    boxShadow: "0 15px 30px rgba(15,23,42,0.08)"
+                  }}
+                >
+                  <p style={{ fontSize: "2rem", fontWeight: 700, color: stat.accent, margin: 0 }}>{stat.value}</p>
+                  <p style={{ margin: "0.4rem 0 0", color: "#475569", fontWeight: 500 }}>{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -322,44 +491,101 @@ const HomePage = () => {
 
       {/* Quick Info Cards */}
       <section style={{ padding: "3rem 1rem", width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "1.5rem" }}>
-          <div style={{
-            background: "linear-gradient(135deg, #10b981, #059669)",
-            borderRadius: "16px",
-            padding: "2rem",
+        <h2
+          style={{
             textAlign: "center",
-            color: "#fff",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
-          }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📚</div>
-            <h3 style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>15+ Years</h3>
-            <p style={{ opacity: 0.9 }}>Of Educational Excellence</p>
+            color: "#f8fafc",
+            fontFamily: "'Playfair Display', 'Georgia', serif",
+            fontSize: "clamp(1.8rem,4vw,2.6rem)",
+            marginBottom: "2rem"
+          }}
+        >
+          A Living, Breathing Campus Culture
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: "1.2rem" }}>
+          {excellenceBadges.map((badge) => (
+            <div
+              key={badge.title}
+              style={{
+                borderRadius: "20px",
+                padding: "1.8rem 1.2rem",
+                background: `linear-gradient(135deg, ${badge.colors[0]}, ${badge.colors[1]})`,
+                color: "#0f172a",
+                boxShadow: "0 18px 40px rgba(15,23,42,0.18)",
+                textAlign: "left",
+                minHeight: "190px"
+              }}
+            >
+              <div style={{ fontSize: "2.2rem" }}>{badge.emoji}</div>
+              <h3 style={{ margin: "0.8rem 0 0.3rem", fontSize: "1.3rem", fontWeight: 700 }}>{badge.title}</h3>
+              <p style={{ margin: 0, color: "rgba(15,23,42,0.75)", fontWeight: 500 }}>{badge.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pillars Section */}
+      <section style={{ padding: "3rem 1rem", width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
+        <div
+          style={{
+            background: "rgba(255,255,255,0.08)",
+            borderRadius: "28px",
+            padding: isMobile ? "2rem" : "3rem",
+            border: "1px solid rgba(255,255,255,0.12)",
+            boxShadow: "0 35px 70px rgba(15,23,42,0.35)",
+            backdropFilter: "blur(18px)"
+          }}
+        >
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <p style={{ color: "#a5b4fc", letterSpacing: "0.25em", textTransform: "uppercase", fontSize: "0.85rem" }}>
+              Why Parents Choose Pinnacle
+            </p>
+            <h2
+              style={{
+                color: "#fff",
+                fontFamily: "'Playfair Display', 'Georgia', serif",
+                fontSize: "clamp(1.9rem,4vw,2.8rem)",
+                margin: 0
+              }}
+            >
+              Academics engineered for clarity, courage, and care.
+            </h2>
           </div>
 
-          <div style={{
-            background: "linear-gradient(135deg, #f59e0b, #d97706)",
-            borderRadius: "16px",
-            padding: "2rem",
-            textAlign: "center",
-            color: "#fff",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
-          }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>👨‍🎓</div>
-            <h3 style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>Classes 9-12</h3>
-            <p style={{ opacity: 0.9 }}>All Boards & Competitive Exams</p>
-          </div>
-
-          <div style={{
-            background: "linear-gradient(135deg, #06b6d4, #0891b2)",
-            borderRadius: "16px",
-            padding: "2rem",
-            textAlign: "center",
-            color: "#fff",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
-          }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🎯</div>
-            <h3 style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>Expert Faculty</h3>
-            <p style={{ opacity: 0.9 }}>30+ Years Experience</p>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "1.5rem" }}>
+            {pillarCards.map((pillar) => {
+              const Icon = pillar.icon;
+              return (
+                <div
+                  key={pillar.title}
+                  style={{
+                    background: pillar.gradient,
+                    borderRadius: "22px",
+                    padding: "2rem",
+                    color: "#fff",
+                    minHeight: "240px",
+                    boxShadow: "0 25px 55px rgba(0,0,0,0.25)"
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "54px",
+                      height: "54px",
+                      borderRadius: "16px",
+                      background: "rgba(255,255,255,0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "1.25rem"
+                    }}
+                  >
+                    <Icon size={26} />
+                  </div>
+                  <h3 style={{ margin: "0 0 0.8rem", fontSize: "1.4rem", fontWeight: 700 }}>{pillar.title}</h3>
+                  <p style={{ margin: 0, lineHeight: 1.7 }}>{pillar.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,7 +1,18 @@
 import axios from "axios";
 
+const getDefaultBaseUrl = () => {
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") {
+      return "http://localhost:8000/api";
+    }
+    return "https://institute-webapp.onrender.com/api";
+  }
+  return "http://localhost:8000/api";
+};
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:8000/api",
+  baseURL: process.env.REACT_APP_API_URL || getDefaultBaseUrl(),
   timeout: 10000, // 10 second timeout
 });
 

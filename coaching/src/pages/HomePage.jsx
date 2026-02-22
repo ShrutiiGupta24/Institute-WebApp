@@ -19,8 +19,8 @@ const carouselImages = [
   { src: image3, mobilePosition: "top", desktopPosition: "center" },
   { src: image4, mobilePosition: "center", desktopPosition: "50% 45%" },
   { src: image5, mobilePosition: "center", desktopPosition: "center" },
-  { src: image6, mobilePosition: "center", desktopPosition: "50% 40%" },
-  { src: image7, mobilePosition: "center", desktopPosition: "50% 35%" },
+  { src: image6, mobilePosition: "center", desktopPosition: "center" },
+  { src: image7, mobilePosition: "center", desktopPosition: "center" },
   { src: image8, mobilePosition: "center", desktopPosition: "center" }
 ];
 

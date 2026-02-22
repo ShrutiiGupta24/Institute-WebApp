@@ -5,7 +5,7 @@ import { submitSignupRequest } from "../services/signupService";
 const roleOptions = [
   { value: "student", label: "Student" },
   { value: "teacher", label: "Teacher" },
-  { value: "parent", label: "Parent / Guardian" }
+  { value: "admin", label: "Administrator" }
 ];
 
 const reassurancePoints = [
@@ -30,6 +30,9 @@ const initialFormState = {
   fullName: "",
   email: "",
   phone: "",
+  username: "",
+  password: "",
+  confirmPassword: "",
   desiredRole: roleOptions[0].value,
   academicFocus: "",
   motivations: ""
@@ -38,6 +41,8 @@ const initialFormState = {
 const SignupPage = () => {
   const [form, setForm] = useState(initialFormState);
   const [phoneError, setPhoneError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmError, setConfirmError] = useState("");
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(() => (typeof window === "undefined" ? true : window.innerWidth <= 768));
@@ -69,6 +74,13 @@ const SignupPage = () => {
     if (name === "phone") {
       setPhoneError("");
     }
+    if (name === "password") {
+      setPasswordError("");
+      setConfirmError("");
+    }
+    if (name === "confirmPassword") {
+      setConfirmError("");
+    }
   };
 
   const validatePhone = () => {
@@ -79,17 +91,33 @@ const SignupPage = () => {
     return true;
   };
 
+  const validatePassword = () => {
+    if (form.password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long");
+      return false;
+    }
+    if (form.password !== form.confirmPassword) {
+      setConfirmError("Passwords do not match");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validatePhone()) {
+    if (!validatePhone() || !validatePassword()) {
       return;
     }
     setStatus({ type: "", message: "" });
     setIsSubmitting(true);
     try {
-      await submitSignupRequest(form);
+      const { confirmPassword, ...requestPayload } = form;
+      await submitSignupRequest(requestPayload);
       setStatus({ type: "success", message: "Request submitted. Admin will enable your account after review." });
       setForm(initialFormState);
+      setPhoneError("");
+      setPasswordError("");
+      setConfirmError("");
     } catch (error) {
       const apiMessage = error.response?.data?.detail || error.response?.data?.message;
       setStatus({ type: "error", message: apiMessage || "Unable to submit request. Please try again." });
@@ -229,6 +257,62 @@ const SignupPage = () => {
               border: "1px solid #e2e8f0"
             }}
           />
+
+          <label style={{ fontWeight: 600, display: "block" }}>Preferred username</label>
+          <input
+            type="text"
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            required
+            placeholder="Pick a unique username"
+            style={{
+              width: "100%",
+              marginTop: "0.35rem",
+              marginBottom: "1rem",
+              padding: "0.9rem 0.95rem",
+              borderRadius: "12px",
+              border: "1px solid #e2e8f0"
+            }}
+          />
+
+          <label style={{ fontWeight: 600, display: "block" }}>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            required
+            placeholder="Create a strong password"
+            style={{
+              width: "100%",
+              marginTop: "0.35rem",
+              marginBottom: passwordError ? "0.4rem" : "1rem",
+              padding: "0.9rem 0.95rem",
+              borderRadius: "12px",
+              border: `1px solid ${passwordError ? "#dc2626" : "#e2e8f0"}`
+            }}
+          />
+          {passwordError && <p style={{ color: "#dc2626", marginTop: 0, marginBottom: "0.8rem" }}>{passwordError}</p>}
+
+          <label style={{ fontWeight: 600, display: "block" }}>Confirm password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            required
+            placeholder="Re-enter password"
+            style={{
+              width: "100%",
+              marginTop: "0.35rem",
+              marginBottom: confirmError ? "0.4rem" : "1rem",
+              padding: "0.9rem 0.95rem",
+              borderRadius: "12px",
+              border: `1px solid ${confirmError ? "#dc2626" : "#e2e8f0"}`
+            }}
+          />
+          {confirmError && <p style={{ color: "#dc2626", marginTop: 0, marginBottom: "0.8rem" }}>{confirmError}</p>}
 
           <label style={{ fontWeight: 600, display: "block" }}>Phone</label>
           <input

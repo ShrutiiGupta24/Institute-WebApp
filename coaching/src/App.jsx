@@ -22,6 +22,7 @@ import FeeManagement from "./pages/admin/FeeManagement";
 import StudentManagement from "./pages/admin/StudentManagement";
 import TeacherManagement from "./pages/admin/TeacherManagement";
 import Reports from "./pages/admin/Reports";
+import SignupApprovals from "./pages/admin/SignupApprovals";
 import AttendanceView from "./pages/student/AttendanceView";
 import StudyMaterialAccess from "./pages/student/StudyMaterialAccess";
 import TestResults from "./pages/student/TestResults";
@@ -63,6 +64,7 @@ const App = () => (
       <Route path="/teacher/materials" element={<StudyMaterialUpload />} />
       <Route path="/teacher/tests" element={<TestsAssignments />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/signup-requests" element={<SignupApprovals />} />
       <Route path="/admin/batches" element={<BatchManagement />} />
       <Route path="/admin/courses" element={<CourseManagement />} />
       <Route path="/admin/fees" element={<FeeManagement />} />

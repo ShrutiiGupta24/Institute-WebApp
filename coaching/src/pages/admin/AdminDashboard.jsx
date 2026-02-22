@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaArrowLeft,FaBook, FaMoneyBillWave, FaUserGraduate, FaChalkboardTeacher, FaLayerGroup, FaChartBar } from "react-icons/fa";
+import { FaArrowLeft,FaBook, FaMoneyBillWave, FaUserGraduate, FaChalkboardTeacher, FaLayerGroup, FaChartBar, FaUserPlus } from "react-icons/fa";
 import { useAdminData } from "../../store/adminDataContext";
 import NotificationCenter from "../../components/notifications/NotificationCenter";
 
@@ -79,6 +79,14 @@ const AdminDashboard = () => {
       icon: <FaChartBar />,
       color: "#8b5cf6",
       path: "/admin/reports"
+    },
+    {
+      id: 7,
+      title: "Signup Requests",
+      description: "Approve pending access",
+      icon: <FaUserPlus />,
+      color: "#f43f5e",
+      path: "/admin/signup-requests"
     }
   ];
 

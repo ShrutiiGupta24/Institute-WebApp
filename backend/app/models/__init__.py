@@ -8,6 +8,7 @@ from app.models.fee import Fee, PaymentStatus, PaymentMethod
 from app.models.study_material import StudyMaterial
 from app.models.test import Test, TestResult
 from app.models.notification import Notification
+from app.models.signup_request import SignupRequest, SignupRequestStatus
 
 __all__ = [
     "User",
@@ -25,4 +26,6 @@ __all__ = [
     "Test",
     "TestResult",
     "Notification",
+    "SignupRequest",
+    "SignupRequestStatus",
 ]

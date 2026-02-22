@@ -7,51 +7,9 @@ const statBlocks = [
   { label: "Session Rhythm", value: "90 mins", accent: "#fbbf24" }
 ];
 
-const mentorHighlights = [
-  {
-    title: "Concept Studios",
-    description: "Immersive math + science labs where every theorem gets a tactile story.",
-    gradient: "linear-gradient(135deg, #f472b6, #ec4899)"
-  },
-  {
-    title: "Wellness Pods",
-    description: "Mindfulness corners, focus playlists, and hydration rituals before every mock.",
-    gradient: "linear-gradient(135deg, #38bdf8, #2563eb)"
-  },
-  {
-    title: "Parent Huddles",
-    description: "Structured dashboards + bi-weekly check-ins to keep families empowered.",
-    gradient: "linear-gradient(135deg, #34d399, #059669)"
-  }
-];
-
-const timelineMilestones = [
-  {
-    year: "2010",
-    title: "The Foundation",
-    detail: "Sudhanshu Shekhar Sir opens a 20-seat math studio focused on concept clarity."
-  },
-  {
-    year: "2014",
-    title: "STEM Cohorts",
-    detail: "Physics + Chemistry labs launch, making integrated science prep a reality."
-  },
-  {
-    year: "2018",
-    title: "Digital Dashboards",
-    detail: "Parent and student portals debut with analytics-driven progress mapping."
-  },
-  {
-    year: "2023",
-    title: "Holistic Campus",
-    detail: "Career studio, wellness pods, and CUET + commerce streams join the ecosystem."
-  }
-];
-
 const valueChips = [
   "Small cohorts (1:20)",
   "Adaptive practice engine",
-  "Olympiad + NTSE clubs",
   "Mentor office hours"
 ];
 
@@ -236,44 +194,6 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Mentorship Highlights */}
-        <section style={{ marginBottom: "3rem" }}>
-          <h2
-            style={{
-              textAlign: "center",
-              fontFamily: "'Playfair Display', 'Georgia', serif",
-              fontSize: "clamp(1.8rem, 4vw, 2.7rem)",
-              marginBottom: "1.5rem"
-            }}
-          >
-            Why parents call us their academic studio.
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-              gap: isMobile ? "1.2rem" : "1.5rem"
-            }}
-          >
-            {mentorHighlights.map((card) => (
-              <div
-                key={card.title}
-                style={{
-                  padding: "2rem",
-                  borderRadius: "24px",
-                  color: "#fff",
-                  background: card.gradient,
-                  boxShadow: "0 25px 55px rgba(0,0,0,0.25)",
-                  minHeight: "220px"
-                }}
-              >
-                <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 700 }}>{card.title}</h3>
-                <p style={{ marginTop: "0.8rem", lineHeight: 1.7 }}>{card.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Culture Grid */}
         <section
           style={{
@@ -315,52 +235,6 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Timeline */}
-        <section style={{ marginBottom: "3.5rem" }}>
-          <h3
-            style={{
-              textAlign: "center",
-              fontFamily: "'Playfair Display', 'Georgia', serif",
-              fontSize: "clamp(1.8rem,4vw,2.6rem)",
-              marginBottom: "2rem"
-            }}
-          >
-            Our evolution
-          </h3>
-          <div
-            style={{
-              position: "relative",
-              paddingLeft: isMobile ? "1.5rem" : "2.5rem",
-              borderLeft: "2px solid rgba(255,255,255,0.3)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem"
-            }}
-          >
-            {timelineMilestones.map((item) => (
-              <div key={item.year} style={{ position: "relative", paddingLeft: "1.2rem" }}>
-                <span
-                  style={{
-                    position: "absolute",
-                    left: "-1.5rem",
-                    top: 6,
-                    width: "14px",
-                    height: "14px",
-                    borderRadius: "50%",
-                    background: "#c084fc",
-                    border: "2px solid #fff"
-                  }}
-                />
-                <p style={{ margin: 0, letterSpacing: "0.25em", textTransform: "uppercase", fontSize: "0.75rem", color: "#a5b4fc" }}>
-                  {item.year}
-                </p>
-                <h4 style={{ margin: "0.2rem 0", fontSize: "1.3rem" }}>{item.title}</h4>
-                <p style={{ margin: 0, color: "rgba(248,250,252,0.85)", lineHeight: 1.7 }}>{item.detail}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* CTA */}
         <section
           style={{
@@ -379,7 +253,7 @@ const AboutUs = () => {
           <div>
             <p style={{ margin: 0, letterSpacing: "0.3em", textTransform: "uppercase", fontSize: "0.75rem" }}>Take the next step</p>
             <h3 style={{ margin: "0.5rem 0 0", fontSize: "1.8rem", fontFamily: "'Playfair Display', 'Georgia', serif" }}>
-              Visit the campus or schedule a discovery call.
+              Visit us or schedule a call.
             </h3>
           </div>
           <Link

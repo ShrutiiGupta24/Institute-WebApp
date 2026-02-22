@@ -187,7 +187,7 @@ const AboutTeachers = () => {
 							marginBottom: "1.8rem"
 						}}
 					>
-						Meet the studio leads
+						Meet the our teachers
 					</h3>
 					<div
 						style={{

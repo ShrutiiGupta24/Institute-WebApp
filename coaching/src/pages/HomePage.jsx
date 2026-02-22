@@ -9,6 +9,7 @@ import image5 from "../assets/Image1.jpeg";
 import image6 from "../assets/Image2.jpeg";
 import image7 from "../assets/Image3.jpeg";
 import image8 from "../assets/Image4.jpeg";
+import image9 from "../assets/Image5.jpeg";
 
 // Adjust position for each image:
 // Options: "center", "top", "bottom", "left", "right", "top center", "bottom center"
@@ -21,7 +22,8 @@ const carouselImages = [
   { src: image5, mobilePosition: "center", desktopPosition: "center" },
   { src: image6, mobilePosition: "center", desktopPosition: "center" },
   { src: image7, mobilePosition: "center", desktopPosition: "center" },
-  { src: image8, mobilePosition: "center", desktopPosition: "center" }
+  { src: image8, mobilePosition: "center", desktopPosition: "center" },
+  { src: image9, mobilePosition: "center", desktopPosition: "center" }
 ];
 
 const highlightStats = [

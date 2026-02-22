@@ -15,7 +15,7 @@ const teachers = [
 	},
 	{
 		name: "Shashi Kumar",
-		subject: "Physics Lead",
+		subject: "Physics ",
 		bio: "20+ years of experience",
 		image: shashiPhoto,
 		color: "#38bdf8"
@@ -29,7 +29,7 @@ const teachers = [
 	},
 	{
 		name: "Nagendra Kumar",
-		subject: "Chemistry Coach",
+		subject: "Chemistry",
 		bio: "7+ years of experience",
 		image: nagendraPhoto,
 		color: "#34d399"
@@ -262,7 +262,7 @@ const AboutTeachers = () => {
 							}}
 						>
 							<p style={{ margin: 0, fontWeight: 600 }}>Office Hours</p>
-							<p style={{ margin: "0.3rem 0 0", color: "#475569" }}>Mon–Sat · 3 PM – 8 PM</p>
+							<p style={{ margin: "0.3rem 0 0", color: "#475569" }}>Mon–Sun · 9 AM – 10 PM</p>
 							<p style={{ margin: "0.3rem 0 0", color: "#475569" }}>Dedicated Sunday bootcamps before boards.</p>
 						</div>
 					</div>

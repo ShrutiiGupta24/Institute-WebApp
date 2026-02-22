@@ -20,7 +20,7 @@ const contactChannels = [
     link: "tel:9953029806"
   },
   {
-    label: "Visit Campus",
+    label: "Visit Us",
     value: "N-4 Vani Vihar, Uttam Nagar, Delhi - 110059",
     icon: FaMapMarkerAlt,
     link: "https://maps.app.goo.gl/U9rSX5HyBY4UYSBcA"
@@ -33,7 +33,7 @@ const contactChannels = [
   },
   {
     label: "Office Hours",
-    value: "Mon-Sat · 9 AM - 8 PM",
+    value: "Mon-Sun· 9 AM - 10 PM",
     icon: FaClock
   }
 ];

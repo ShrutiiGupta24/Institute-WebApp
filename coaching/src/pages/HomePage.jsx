@@ -14,14 +14,14 @@ import image8 from "../assets/Image4.jpeg";
 // Options: "center", "top", "bottom", "left", "right", "top center", "bottom center"
 // Or use percentage: "50% 20%" (horizontal, vertical)
 const carouselImages = [
-  { src: image1, position: "top" },
-  { src: image2, position: "center" },
-  { src: image3, position: "top" },
-  { src: image4, position: "center" },
-  { src: image5, position: "center" },
-  { src: image6, position: "center" },
-  { src: image7, position: "center" },
-  { src: image8, position: "center" }
+  { src: image1, mobilePosition: "top", desktopPosition: "center" },
+  { src: image2, mobilePosition: "center", desktopPosition: "center" },
+  { src: image3, mobilePosition: "top", desktopPosition: "center" },
+  { src: image4, mobilePosition: "center", desktopPosition: "50% 45%" },
+  { src: image5, mobilePosition: "center", desktopPosition: "center" },
+  { src: image6, mobilePosition: "center", desktopPosition: "50% 40%" },
+  { src: image7, mobilePosition: "center", desktopPosition: "50% 35%" },
+  { src: image8, mobilePosition: "center", desktopPosition: "center" }
 ];
 
 const HomePage = () => {
@@ -118,7 +118,9 @@ const HomePage = () => {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                objectPosition: imageData.position,
+                objectPosition: isMobile
+                  ? imageData.mobilePosition || "center"
+                  : imageData.desktopPosition || imageData.mobilePosition || "center",
                 opacity: currentSlide === index ? 1 : 0,
                 transition: "opacity 0.8s ease-in-out"
               }}

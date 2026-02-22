@@ -20,15 +20,22 @@ export const NotificationProvider = ({ children }) => {
   const [unreadCount, setUnreadCount] = useState(0);
   const toastTimerRef = useRef(null);
 
+  const rawStoredUser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+
   const currentUser = useMemo(() => {
+    if (!rawStoredUser) {
+      return null;
+    }
     try {
-      const stored = localStorage.getItem("user");
-      return stored ? JSON.parse(stored) : null;
+      return JSON.parse(rawStoredUser);
     } catch (err) {
       console.error("Failed to parse user from storage", err);
       return null;
     }
-  }, []);
+  }, [rawStoredUser]);
+
+  const authToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const isAuthenticated = Boolean(authToken && currentUser?.role);
 
   const normalizedRole = currentUser?.role ? currentUser.role.toLowerCase() : null;
   const isAdmin = normalizedRole === "admin";
@@ -82,6 +89,13 @@ export const NotificationProvider = ({ children }) => {
   }, [isAdmin, normalizedRole]);
 
   const fetchNotifications = useCallback(async () => {
+    if (!isAuthenticated) {
+      setNotifications([]);
+      setUnreadCount(0);
+      setError(null);
+      dismissToast();
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -97,7 +111,7 @@ export const NotificationProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [computeUnreadCount, filterByAudience, maybeShowToast]);
+  }, [computeUnreadCount, filterByAudience, maybeShowToast, dismissToast, isAuthenticated]);
 
   const markAllAsRead = useCallback(() => {
     const timestamp = new Date().toISOString();
@@ -107,6 +121,14 @@ export const NotificationProvider = ({ children }) => {
   }, [dismissToast, lastSeenKey]);
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return () => {
+        if (toastTimerRef.current) {
+          clearTimeout(toastTimerRef.current);
+        }
+      };
+    }
+
     fetchNotifications();
     const interval = setInterval(fetchNotifications, 60000);
     return () => {
@@ -115,7 +137,7 @@ export const NotificationProvider = ({ children }) => {
         clearTimeout(toastTimerRef.current);
       }
     };
-  }, [fetchNotifications]);
+  }, [fetchNotifications, isAuthenticated]);
 
   const value = useMemo(() => ({
     notifications,

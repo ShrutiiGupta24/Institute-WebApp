@@ -14,7 +14,8 @@ from app.utils.auth import get_current_user, require_role
 router = APIRouter()
 
 
-@router.get("/", response_model=List[NotificationResponse])
+@router.get("", response_model=List[NotificationResponse])
+@router.get("/", response_model=List[NotificationResponse], include_in_schema=False)
 async def list_notifications(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -23,7 +24,8 @@ async def list_notifications(
     return service.get_recent_notifications()
 
 
-@router.post("/", response_model=NotificationResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=NotificationResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=NotificationResponse, status_code=status.HTTP_201_CREATED, include_in_schema=False)
 async def create_notification(
     payload: NotificationCreate,
     current_user: User = Depends(require_role(UserRole.ADMIN)),

@@ -195,8 +195,6 @@ const HomePage = () => {
     setCurrentSlide(index);
   };
 
-  const totalSlides = carouselImages.length;
-
   return (
     <div
       style={{

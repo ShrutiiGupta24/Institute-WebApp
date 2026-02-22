@@ -26,8 +26,7 @@ const carouselImages = [
 
 const highlightStats = [
   { label: "Students Guided", value: "2,500+", accent: "#f472b6" },
-  { label: "Board Toppers", value: "180+", accent: "#38bdf8" },
-  { label: "Scholarships Won", value: "₹1.2 Cr", accent: "#34d399" }
+  { label: "Board Toppers", value: "180+", accent: "#38bdf8" }
 ];
 
 const uspChips = [

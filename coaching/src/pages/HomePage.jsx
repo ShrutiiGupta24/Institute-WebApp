@@ -575,7 +575,14 @@ const HomePage = () => {
         >
           A Living, Breathing Culture
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: "1.2rem" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(3, minmax(0, 1fr))",
+            gap: "1.2rem",
+            justifyItems: "center"
+          }}
+        >
           {excellenceBadges.map((badge) => (
             <div
               key={badge.title}
@@ -586,7 +593,8 @@ const HomePage = () => {
                 color: "#0f172a",
                 boxShadow: "0 18px 40px rgba(15,23,42,0.18)",
                 textAlign: "left",
-                minHeight: "190px"
+                minHeight: "190px",
+                width: "100%"
               }}
             >
               <div style={{ fontSize: "2.2rem" }}>{badge.emoji}</div>
@@ -625,7 +633,14 @@ const HomePage = () => {
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
+              gap: "1.5rem",
+              justifyItems: "center"
+            }}
+          >
             {pillarCards.map((pillar) => {
               const Icon = pillar.icon;
               return (
@@ -637,7 +652,8 @@ const HomePage = () => {
                     padding: "2rem",
                     color: "#fff",
                     minHeight: "240px",
-                    boxShadow: "0 25px 55px rgba(0,0,0,0.25)"
+                    boxShadow: "0 25px 55px rgba(0,0,0,0.25)",
+                    width: "100%"
                   }}
                 >
                   <div

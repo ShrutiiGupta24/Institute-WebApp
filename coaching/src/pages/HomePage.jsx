@@ -14,70 +14,14 @@ import image8 from "../assets/Image4.jpeg";
 // Options: "center", "top", "bottom", "left", "right", "top center", "bottom center"
 // Or use percentage: "50% 20%" (horizontal, vertical)
 const carouselImages = [
-  {
-    src: image1,
-    mobilePosition: "top",
-    desktopPosition: "center",
-    tagline: "Concept Clarity Sessions",
-    description: "Premium math + science studios that turn tough chapters into lucid stories.",
-    accent: "#c084fc"
-  },
-  {
-    src: image2,
-    mobilePosition: "center",
-    desktopPosition: "center",
-    tagline: "Mentors Who Notice",
-    description: "High-touch faculty track every doubt, every milestone, every expression.",
-    accent: "#38bdf8"
-  },
-  {
-    src: image3,
-    mobilePosition: "top",
-    desktopPosition: "center",
-    tagline: "Calm Exam Rituals",
-    description: "Weekly diagnostics + recovery maps keep board prep zen yet relentless.",
-    accent: "#f472b6"
-  },
-  {
-    src: image4,
-    mobilePosition: "center",
-    desktopPosition: "50% 45%",
-    tagline: "Wellness Corners",
-    description: "Mindful breathing pods + focus playlists built right into the campus.",
-    accent: "#fbbf24"
-  },
-  {
-    src: image5,
-    mobilePosition: "center",
-    desktopPosition: "center",
-    tagline: "STEM Labs",
-    description: "Applied science bays that make physics tangible and chemistry cinematic.",
-    accent: "#34d399"
-  },
-  {
-    src: image6,
-    mobilePosition: "center",
-    desktopPosition: "center",
-    tagline: "Parent Circles",
-    description: "Transparent dashboards + bi-weekly huddles keep families empowered.",
-    accent: "#f97316"
-  },
-  {
-    src: image7,
-    mobilePosition: "center",
-    desktopPosition: "center",
-    tagline: "Career Studio",
-    description: "NEET + JEE mentors, portfolio clinics, and interview storytellers under one roof.",
-    accent: "#60a5fa"
-  },
-  {
-    src: image8,
-    mobilePosition: "center",
-    desktopPosition: "center",
-    tagline: "Celebrating Wins",
-    description: "Wall of fame moments, achiever podcasts, and gratitude nights each term.",
-    accent: "#fb7185"
-  }
+  { src: image1, mobilePosition: "top", desktopPosition: "center" },
+  { src: image2, mobilePosition: "center", desktopPosition: "center" },
+  { src: image3, mobilePosition: "top", desktopPosition: "center" },
+  { src: image4, mobilePosition: "center", desktopPosition: "50% 45%" },
+  { src: image5, mobilePosition: "center", desktopPosition: "center" },
+  { src: image6, mobilePosition: "center", desktopPosition: "center" },
+  { src: image7, mobilePosition: "center", desktopPosition: "center" },
+  { src: image8, mobilePosition: "center", desktopPosition: "center" }
 ];
 
 const highlightStats = [
@@ -221,133 +165,104 @@ const HomePage = () => {
           height: `${carouselHeight}px`,
           background: "linear-gradient(135deg, #020617, #111c44)",
           overflow: "hidden",
-          borderRadius: "30px",
-          border: "1px solid rgba(255,255,255,0.15)",
-          boxShadow: "0 45px 80px rgba(2,6,23,0.55)"
+          borderRadius: "34px",
+          border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 50px 90px rgba(2,6,23,0.55)",
+          isolation: "isolate"
         }}>
           <div
             aria-hidden
             style={{
               position: "absolute",
-              inset: "-30%",
-              background: "radial-gradient(circle at 30% 20%, rgba(99,102,241,0.4), transparent 60%)",
-              filter: "blur(60px)",
+              inset: "-40%",
+              background: "radial-gradient(circle at 30% 30%, rgba(99,102,241,0.35), transparent 60%)",
+              filter: "blur(80px)",
               zIndex: 0
             }}
           />
 
-          <div
-            style={{
-              position: "absolute",
-              top: isMobile ? "12px" : "20px",
-              left: isMobile ? "16px" : "28px",
-              right: isMobile ? "16px" : "28px",
-              display: "flex",
-              gap: "0.65rem",
-              zIndex: 5
-            }}
-          >
-            {carouselImages.map((imageData, index) => (
+          {carouselImages.map((imageData, index) => {
+            const total = carouselImages.length;
+            const prevIndex = (currentSlide - 1 + total) % total;
+            const nextIndex = (currentSlide + 1) % total;
+            const isActive = index === currentSlide;
+            const isPrev = index === prevIndex;
+            const isNext = index === nextIndex;
+            const sideShift = isMobile ? 55 : 26;
+            let transform = "translate(-50%, -50%) scale(0.7)";
+            let opacity = 0;
+            let width = isMobile ? "58%" : "42%";
+            let height = isMobile ? "62%" : "68%";
+            let zIndex = 1;
+            let blurBorder = "rgba(255,255,255,0.2)";
+
+            if (isActive) {
+              transform = "translate(-50%, -50%) scale(1)";
+              opacity = 1;
+              width = isMobile ? "78%" : "60%";
+              height = isMobile ? "80%" : "82%";
+              zIndex = 4;
+              blurBorder = "rgba(255,255,255,0.35)";
+            } else if (isPrev) {
+              transform = `translate(calc(-50% - ${sideShift}%), -50%) scale(${isMobile ? 0.88 : 0.93})`;
+              opacity = 0.75;
+              zIndex = 2;
+            } else if (isNext) {
+              transform = `translate(calc(-50% + ${sideShift}%), -50%) scale(${isMobile ? 0.88 : 0.93})`;
+              opacity = 0.75;
+              zIndex = 2;
+            }
+
+            return (
               <div
-                key={`${imageData.tagline}-progress`}
-                style={{ flex: 1, height: "4px", borderRadius: "999px", background: "rgba(255,255,255,0.25)", overflow: "hidden" }}
+                key={imageData.src}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  width,
+                  height,
+                  borderRadius: "30px",
+                  overflow: "hidden",
+                  border: `1px solid ${blurBorder}`,
+                  boxShadow: isActive
+                    ? "0 35px 80px rgba(15,23,42,0.6)"
+                    : "0 15px 40px rgba(15,23,42,0.35)",
+                  transform,
+                  opacity,
+                  transition: "all 0.9s ease",
+                  zIndex,
+                  pointerEvents: isActive ? "auto" : "none",
+                  backdropFilter: isActive ? "blur(4px)" : "none"
+                }}
               >
+                <img
+                  src={imageData.src}
+                  alt={`Slide ${index + 1}`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: isMobile
+                      ? imageData.mobilePosition || "center"
+                      : imageData.desktopPosition || imageData.mobilePosition || "center",
+                    filter: isActive ? "saturate(1.05)" : "saturate(0.9)",
+                    transition: "filter 0.6s ease"
+                  }}
+                />
                 <div
                   style={{
-                    height: "100%",
-                    width: currentSlide === index ? "100%" : "0%",
-                    transition: "width 4s linear",
-                    background: "linear-gradient(120deg, #fff, rgba(255,255,255,0.4))"
+                    position: "absolute",
+                    inset: 0,
+                    background: isActive
+                      ? "linear-gradient(180deg, rgba(15,23,42,0.08) 0%, rgba(15,23,42,0.65) 100%)"
+                      : "linear-gradient(180deg, rgba(15,23,42,0.2), rgba(15,23,42,0.7))",
+                    mixBlendMode: "multiply"
                   }}
                 />
               </div>
-            ))}
-          </div>
-
-          {carouselImages.map((imageData, index) => (
-            <div
-              key={imageData.src}
-              style={{
-                position: "absolute",
-                inset: 0,
-                opacity: currentSlide === index ? 1 : 0,
-                transform: currentSlide === index ? "scale(1)" : "scale(1.04)",
-                transition: "opacity 0.9s ease, transform 1.1s ease",
-                pointerEvents: currentSlide === index ? "auto" : "none",
-                zIndex: 1
-              }}
-            >
-              <img
-                src={imageData.src}
-                alt={`Slide ${index + 1}`}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: isMobile
-                    ? imageData.mobilePosition || "center"
-                    : imageData.desktopPosition || imageData.mobilePosition || "center",
-                  filter: currentSlide === index ? "saturate(1.05) contrast(1.02)" : "saturate(0.9)",
-                  zIndex: 0
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(180deg, rgba(2,6,23,0) 40%, rgba(2,6,23,0.85) 100%)",
-                  zIndex: 1
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  top: isMobile ? "1rem" : "1.5rem",
-                  right: isMobile ? "1rem" : "1.8rem",
-                  padding: "0.4rem 0.8rem",
-                  borderRadius: "999px",
-                  background: "rgba(15,23,42,0.55)",
-                  border: `1px solid ${imageData.accent}77`,
-                  color: imageData.accent,
-                  fontSize: "0.8rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  fontWeight: 600,
-                  zIndex: 2
-                }}
-              >
-                Slide {String(index + 1).padStart(2, "0")}
-              </div>
-
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: isMobile ? "0.8rem" : "1.8rem",
-                  left: isMobile ? "0.8rem" : "1.8rem",
-                  width: isMobile ? "calc(100% - 1.6rem)" : "min(380px, 45%)",
-                  padding: isMobile ? "0.9rem 1rem" : "1.2rem 1.5rem",
-                  borderRadius: "22px",
-                  background: "rgba(255,255,255,0.18)",
-                  border: "1px solid rgba(255,255,255,0.35)",
-                  color: "#0f172a",
-                  backdropFilter: "blur(12px)",
-                  boxShadow: "0 25px 45px rgba(2,6,23,0.45)",
-                  zIndex: 2
-                }}
-              >
-                <p style={{ margin: 0, fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(15,23,42,0.65)" }}>
-                  {imageData.tagline}
-                </p>
-                <p style={{ margin: "0.4rem 0 0", fontSize: isMobile ? "0.9rem" : "1rem", lineHeight: 1.6, color: "rgba(15,23,42,0.9)" }}>
-                  {imageData.description}
-                </p>
-                <div style={{ width: "48px", height: "3px", borderRadius: "999px", background: imageData.accent, marginTop: "0.8rem" }} />
-              </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Navigation Arrows */}
           <button
@@ -398,69 +313,34 @@ const HomePage = () => {
             ›
           </button>
 
-          {/* Dot Indicators + Thumbnails */}
+          {/* Dot Indicators */}
           <div style={{
             position: "absolute",
-            bottom: isMobile ? "0.8rem" : "1rem",
+            bottom: isMobile ? "1rem" : "1.5rem",
             left: "50%",
             transform: "translateX(-50%)",
             display: "flex",
-            flexDirection: "column",
-            gap: "0.6rem",
-            alignItems: "center",
-            width: "90%",
-            zIndex: 100
+            gap: "0.65rem",
+            zIndex: 20
           }}>
-            <div style={{ display: "flex", gap: "10px" }}>
-              {carouselImages.map((imageData, index) => (
-                <button
-                  key={`${imageData.tagline}-dot`}
-                  onClick={() => goToSlide(index)}
-                  style={{
-                    width: currentSlide === index ? "14px" : "10px",
-                    height: currentSlide === index ? "14px" : "10px",
-                    borderRadius: "50%",
-                    border: currentSlide === index ? "1px solid rgba(255,255,255,0.9)" : "1px solid transparent",
-                    background: currentSlide === index
-                      ? "linear-gradient(135deg, #c084fc, #7c3aed)"
-                      : "rgba(255,255,255,0.4)",
-                    cursor: "pointer",
-                    transition: "all 0.3s",
-                    padding: 0
-                  }}
-                />
-              ))}
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: isMobile ? "0.35rem" : "0.6rem",
-                width: "100%",
-                overflowX: "auto",
-                paddingBottom: "0.2rem"
-              }}
-            >
-              {carouselImages.map((imageData, index) => (
-                <button
-                  key={`${imageData.tagline}-thumb`}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`View slide ${index + 1}`}
-                  style={{
-                    flex: `0 0 ${isMobile ? 56 : 70}px`,
-                    height: isMobile ? "42px" : "50px",
-                    borderRadius: "14px",
-                    border: currentSlide === index ? `2px solid ${imageData.accent}` : "1px solid rgba(255,255,255,0.4)",
-                    backgroundImage: `url(${imageData.src})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    opacity: currentSlide === index ? 1 : 0.7,
-                    transition: "transform 0.3s, opacity 0.3s",
-                    transform: currentSlide === index ? "translateY(-2px)" : "none",
-                    cursor: "pointer"
-                  }}
-                />
-              ))}
-            </div>
+            {carouselImages.map((imageData, index) => (
+              <button
+                key={`${imageData.src}-dot`}
+                onClick={() => goToSlide(index)}
+                style={{
+                  width: currentSlide === index ? "36px" : "16px",
+                  height: "6px",
+                  borderRadius: "999px",
+                  border: "none",
+                  background: currentSlide === index
+                    ? "linear-gradient(120deg, #f472b6, #c084fc, #7c3aed)"
+                    : "rgba(255,255,255,0.35)",
+                  cursor: "pointer",
+                  transition: "width 0.3s ease, background 0.3s ease",
+                  padding: 0
+                }}
+              />
+            ))}
           </div>
         </div>
       </section>

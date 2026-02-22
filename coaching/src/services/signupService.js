@@ -1,9 +1,9 @@
 import api from "./api";
 
-export const submitSignupRequest = (payload) => api.post("/signup", payload);
+export const submitSignupRequest = (payload) => api.post("/signup/", payload);
 
 export const fetchSignupRequests = (status) =>
-	api.get("/signup", {
+	api.get("/signup/", {
 		params: status ? { status } : undefined
 	});
 

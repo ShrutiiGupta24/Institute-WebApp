@@ -59,6 +59,7 @@ async def submit_signup_request(payload: SignupSubmissionRequest, db: Session = 
 
 @router.get("", response_model=List[SignupRequestResponse], include_in_schema=False)
 @router.get("/", response_model=List[SignupRequestResponse])
+@router.get("/requests", response_model=List[SignupRequestResponse])
 async def list_signup_requests(
     status: Optional[SignupRequestStatus] = Query(None),
     current_user: User = Depends(require_role(UserRole.ADMIN)),

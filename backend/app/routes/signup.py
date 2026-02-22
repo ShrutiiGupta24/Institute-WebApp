@@ -57,6 +57,7 @@ async def submit_signup_request(payload: SignupSubmissionRequest, db: Session = 
     return SignupSubmissionResponse(message="Request submitted. Admin will enable your login after verification.")
 
 
+@router.get("", response_model=List[SignupRequestResponse], include_in_schema=False)
 @router.get("/", response_model=List[SignupRequestResponse])
 async def list_signup_requests(
     status: Optional[SignupRequestStatus] = Query(None),

@@ -20,6 +20,24 @@ const statusColors = {
   rejected: "#f87171"
 };
 
+const statusGradients = {
+  pending: "linear-gradient(135deg, #fde68a, #fbbf24)",
+  approved: "linear-gradient(135deg, #6ee7b7, #34d399)",
+  rejected: "linear-gradient(135deg, #fecdd3, #f87171)"
+};
+
+const statusIcons = {
+  pending: <FaUserClock />,
+  approved: <FaUserCheck />,
+  rejected: <FaUserTimes />
+};
+
+const roleAccents = {
+  admin: "#0ea5e9",
+  teacher: "#f59e0b",
+  student: "#8b5cf6"
+};
+
 const SignupApprovals = () => {
   const [allRequests, setAllRequests] = useState([]);
   const [filter, setFilter] = useState("pending");
@@ -191,23 +209,65 @@ const SignupApprovals = () => {
           ) : filteredRequests.length === 0 ? (
             <p style={{ color: "rgba(248,250,252,0.7)" }}>No requests found for this filter.</p>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
-              {filteredRequests.map((request) => (
-                <div
-                  key={request.id}
-                  style={{
-                    background: "rgba(255,255,255,0.95)",
-                    borderRadius: "20px",
-                    padding: "1.5rem",
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+              {filteredRequests.map((request) => {
+                const roleKey = request.desired_role ? request.desired_role.toLowerCase() : "";
+                const roleColor = roleAccents[roleKey] || "#475569";
+
+                return (
+                  <div
+                    key={request.id}
+                    style={{
+                    position: "relative",
+                    overflow: "hidden",
+                    background: "#fff",
+                    borderRadius: "22px",
+                    padding: "1.8rem",
                     color: "#0f172a",
-                    boxShadow: "0 25px 40px rgba(15,23,42,0.25)",
+                    boxShadow: "0 20px 45px rgba(15,23,42,0.18)",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.5rem"
+                    gap: "0.75rem",
+                    border: "1px solid rgba(15,23,42,0.06)"
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <h3 style={{ margin: 0 }}>{request.full_name}</h3>
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "6px",
+                      background: statusGradients[request.status] || "#e2e8f0"
+                    }}
+                  />
+
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                      <div
+                        style={{
+                          width: "58px",
+                          height: "58px",
+                          borderRadius: "18px",
+                          background: statusGradients[request.status] || "#e2e8f0",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "1.6rem",
+                          color: "#0f172a",
+                          boxShadow: "0 10px 20px rgba(15,23,42,0.15)"
+                        }}
+                      >
+                        {statusIcons[request.status] || <FaUsers />}
+                      </div>
+                      <div>
+                        <h3 style={{ margin: 0, fontSize: "1.35rem" }}>{request.full_name}</h3>
+                        <p style={{ margin: 0, color: "#475569", fontWeight: 600 }}>{request.email}</p>
+                        <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.85rem" }}>
+                          Submitted {new Date(request.created_at).toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
                     <span
                       style={{
                         borderRadius: "999px",
@@ -221,20 +281,62 @@ const SignupApprovals = () => {
                       {request.status}
                     </span>
                   </div>
-                  <p style={{ margin: 0, color: "#475569", fontWeight: 600 }}>{request.email}</p>
-                  <p style={{ margin: 0, color: "#475569" }}>Phone: {request.phone}</p>
-                  <p style={{ margin: 0, color: "#475569" }}>Role: {request.desired_role}</p>
-                  <p style={{ margin: 0, color: "#475569" }}>Username: {request.username}</p>
-                  <p style={{ margin: 0, color: "#0f172a", fontWeight: 600 }}>Focus: {request.academic_focus}</p>
+
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                    <span
+                      style={{
+                        borderRadius: "999px",
+                        padding: "0.35rem 0.9rem",
+                        fontSize: "0.8rem",
+                        fontWeight: 600,
+                        background: roleColor + "22",
+                        color: roleColor
+                      }}
+                    >
+                      {request.desired_role} role
+                    </span>
+                    <span
+                      style={{
+                        borderRadius: "999px",
+                        padding: "0.35rem 0.9rem",
+                        fontSize: "0.8rem",
+                        fontWeight: 600,
+                        background: "#e2e8f0",
+                        color: "#334155"
+                      }}
+                    >
+                      {request.phone}
+                    </span>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "0.6rem" }}>
+                    <div style={{ background: "#f8fafc", borderRadius: "12px", padding: "0.6rem 0.8rem" }}>
+                      <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.75rem", textTransform: "uppercase" }}>Username</p>
+                      <p style={{ margin: 0, fontWeight: 600 }}>{request.username}</p>
+                    </div>
+                    <div style={{ background: "#f8fafc", borderRadius: "12px", padding: "0.6rem 0.8rem" }}>
+                      <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.75rem", textTransform: "uppercase" }}>Focus</p>
+                      <p style={{ margin: 0, fontWeight: 600 }}>{request.academic_focus || "--"}</p>
+                    </div>
+                  </div>
+
                   {request.motivations && (
-                    <p style={{ margin: 0, color: "#475569", lineHeight: 1.4 }}>{request.motivations}</p>
+                    <div
+                      style={{
+                        background: "rgba(99,102,241,0.08)",
+                        borderRadius: "14px",
+                        padding: "0.8rem 1rem",
+                        color: "#4c1d95",
+                        lineHeight: 1.45,
+                        fontWeight: 500
+                      }}
+                    >
+                      "{request.motivations}"
+                    </div>
                   )}
                   {request.admin_note && (
                     <p style={{ margin: 0, color: "#9333ea", lineHeight: 1.4 }}>Note: {request.admin_note}</p>
                   )}
-                  <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.85rem" }}>
-                    Submitted: {new Date(request.created_at).toLocaleString()}
-                  </p>
 
                   {request.status === "pending" && (
                     <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.8rem" }}>
@@ -272,8 +374,9 @@ const SignupApprovals = () => {
                       </button>
                     </div>
                   )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

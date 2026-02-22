@@ -14,14 +14,70 @@ import image8 from "../assets/Image4.jpeg";
 // Options: "center", "top", "bottom", "left", "right", "top center", "bottom center"
 // Or use percentage: "50% 20%" (horizontal, vertical)
 const carouselImages = [
-  { src: image1, mobilePosition: "top", desktopPosition: "center" },
-  { src: image2, mobilePosition: "center", desktopPosition: "center" },
-  { src: image3, mobilePosition: "top", desktopPosition: "center" },
-  { src: image4, mobilePosition: "center", desktopPosition: "50% 45%" },
-  { src: image5, mobilePosition: "center", desktopPosition: "center" },
-  { src: image6, mobilePosition: "center", desktopPosition: "center" },
-  { src: image7, mobilePosition: "center", desktopPosition: "center" },
-  { src: image8, mobilePosition: "center", desktopPosition: "center" }
+  {
+    src: image1,
+    mobilePosition: "top",
+    desktopPosition: "center",
+    tagline: "Concept Clarity Sessions",
+    description: "Premium math + science studios that turn tough chapters into lucid stories.",
+    accent: "#c084fc"
+  },
+  {
+    src: image2,
+    mobilePosition: "center",
+    desktopPosition: "center",
+    tagline: "Mentors Who Notice",
+    description: "High-touch faculty track every doubt, every milestone, every expression.",
+    accent: "#38bdf8"
+  },
+  {
+    src: image3,
+    mobilePosition: "top",
+    desktopPosition: "center",
+    tagline: "Calm Exam Rituals",
+    description: "Weekly diagnostics + recovery maps keep board prep zen yet relentless.",
+    accent: "#f472b6"
+  },
+  {
+    src: image4,
+    mobilePosition: "center",
+    desktopPosition: "50% 45%",
+    tagline: "Wellness Corners",
+    description: "Mindful breathing pods + focus playlists built right into the campus.",
+    accent: "#fbbf24"
+  },
+  {
+    src: image5,
+    mobilePosition: "center",
+    desktopPosition: "center",
+    tagline: "STEM Labs",
+    description: "Applied science bays that make physics tangible and chemistry cinematic.",
+    accent: "#34d399"
+  },
+  {
+    src: image6,
+    mobilePosition: "center",
+    desktopPosition: "center",
+    tagline: "Parent Circles",
+    description: "Transparent dashboards + bi-weekly huddles keep families empowered.",
+    accent: "#f97316"
+  },
+  {
+    src: image7,
+    mobilePosition: "center",
+    desktopPosition: "center",
+    tagline: "Career Studio",
+    description: "NEET + JEE mentors, portfolio clinics, and interview storytellers under one roof.",
+    accent: "#60a5fa"
+  },
+  {
+    src: image8,
+    mobilePosition: "center",
+    desktopPosition: "center",
+    tagline: "Celebrating Wins",
+    description: "Wall of fame moments, achiever podcasts, and gratitude nights each term.",
+    accent: "#fb7185"
+  }
 ];
 
 const highlightStats = [
@@ -139,6 +195,8 @@ const HomePage = () => {
     setCurrentSlide(index);
   };
 
+  const totalSlides = carouselImages.length;
+
   return (
     <div
       style={{
@@ -163,30 +221,121 @@ const HomePage = () => {
           width: "100%", 
           maxWidth: "100%",
           height: `${carouselHeight}px`,
-          background: "#000",
+          background: "linear-gradient(135deg, #020617, #0f172a)",
           overflow: "hidden",
-          borderRadius: "16px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
+          borderRadius: "24px",
+          border: "1px solid rgba(255,255,255,0.15)",
+          boxShadow: "0 45px 80px rgba(2,6,23,0.65)"
         }}>
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: "-35%",
+              background: "radial-gradient(circle, rgba(124,58,237,0.35), transparent 60%)",
+              filter: "blur(50px)",
+              zIndex: 0
+            }}
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              top: isMobile ? "12px" : "20px",
+              left: isMobile ? "16px" : "28px",
+              right: isMobile ? "16px" : "28px",
+              display: "flex",
+              gap: "0.65rem",
+              zIndex: 5
+            }}
+          >
+            {carouselImages.map((imageData, index) => (
+              <div
+                key={`${imageData.tagline}-progress`}
+                style={{ flex: 1, height: "4px", borderRadius: "999px", background: "rgba(255,255,255,0.25)", overflow: "hidden" }}
+              >
+                <div
+                  style={{
+                    height: "100%",
+                    width: currentSlide === index ? "100%" : "0%",
+                    transition: "width 4s linear",
+                    background: "linear-gradient(120deg, #fff, rgba(255,255,255,0.4))"
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+
           {carouselImages.map((imageData, index) => (
-            <img
-              key={index}
-              src={imageData.src}
-              alt={`Slide ${index + 1}`}
+            <div
+              key={imageData.src}
               style={{
                 position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: isMobile
-                  ? imageData.mobilePosition || "center"
-                  : imageData.desktopPosition || imageData.mobilePosition || "center",
+                inset: 0,
                 opacity: currentSlide === index ? 1 : 0,
-                transition: "opacity 0.8s ease-in-out"
+                transform: currentSlide === index ? "scale(1)" : "scale(1.06)",
+                transition: "opacity 0.9s ease, transform 1.2s ease",
+                pointerEvents: currentSlide === index ? "auto" : "none",
+                zIndex: 1
               }}
-            />
+            >
+              <img
+                src={imageData.src}
+                alt={`Slide ${index + 1}`}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: isMobile
+                    ? imageData.mobilePosition || "center"
+                    : imageData.desktopPosition || imageData.mobilePosition || "center",
+                  filter: "saturate(1.05)",
+                  zIndex: 0
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: `linear-gradient(115deg, rgba(2,6,23,0.1) 20%, ${imageData.accent}33 60%, rgba(2,6,23,0.85))`,
+                  zIndex: 1
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: isMobile ? "1rem" : "2rem",
+                  left: isMobile ? "1rem" : "2rem",
+                  right: isMobile ? "1rem" : "auto",
+                  width: isMobile ? "auto" : "min(420px, 50%)",
+                  padding: isMobile ? "1rem 1.1rem" : "1.4rem 1.8rem",
+                  borderRadius: "24px",
+                  background: "rgba(2,6,23,0.65)",
+                  border: `1px solid ${imageData.accent}55`,
+                  color: "#f8fafc",
+                  backdropFilter: "blur(14px)",
+                  boxShadow: "0 25px 55px rgba(2,6,23,0.55)",
+                  zIndex: 2
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.6rem" }}>
+                  <span style={{ letterSpacing: "0.35em", fontSize: "0.65rem", textTransform: "uppercase", color: "rgba(248,250,252,0.8)" }}>
+                    {`${String(index + 1).padStart(2, "0")} / ${String(totalSlides).padStart(2, "0")}`}
+                  </span>
+                  <span style={{ fontSize: "0.75rem", fontWeight: 600, color: imageData.accent }}>Live Campus</span>
+                </div>
+                <h3 style={{ margin: 0, fontSize: isMobile ? "1.15rem" : "1.45rem", fontWeight: 700, fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                  {imageData.tagline}
+                </h3>
+                <p style={{ margin: "0.6rem 0 0", fontSize: "0.95rem", lineHeight: 1.6, color: "rgba(248,250,252,0.85)" }}>
+                  {imageData.description}
+                </p>
+                <div style={{ width: "60px", height: "3px", borderRadius: "999px", background: imageData.accent, marginTop: "1rem" }} />
+              </div>
+            </div>
           ))}
 
           {/* Navigation Arrows */}
@@ -197,17 +346,18 @@ const HomePage = () => {
               left: isMobile ? "10px" : "20px",
               top: "50%",
               transform: "translateY(-50%)",
-              background: "rgba(255, 255, 255, 0.8)",
-              border: "none",
+              background: "rgba(2,6,23,0.75)",
+              border: "1px solid rgba(255,255,255,0.25)",
               borderRadius: "50%",
-              width: isMobile ? "35px" : "45px",
-              height: isMobile ? "35px" : "45px",
+              width: isMobile ? "38px" : "48px",
+              height: isMobile ? "38px" : "48px",
               fontSize: isMobile ? "1.2rem" : "1.5rem",
               cursor: "pointer",
-              zIndex: 100,
-              color: "#333",
+              zIndex: 10,
+              color: "#f8fafc",
               fontWeight: "bold",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.3)"
+              boxShadow: "0 15px 30px rgba(2,6,23,0.55)",
+              backdropFilter: "blur(8px)"
             }}
           >
             ‹
@@ -220,17 +370,18 @@ const HomePage = () => {
               right: isMobile ? "10px" : "20px",
               top: "50%",
               transform: "translateY(-50%)",
-              background: "rgba(255, 255, 255, 0.8)",
-              border: "none",
+              background: "rgba(2,6,23,0.75)",
+              border: "1px solid rgba(255,255,255,0.25)",
               borderRadius: "50%",
-              width: isMobile ? "35px" : "45px",
-              height: isMobile ? "35px" : "45px",
+              width: isMobile ? "38px" : "48px",
+              height: isMobile ? "38px" : "48px",
               fontSize: isMobile ? "1.2rem" : "1.5rem",
               cursor: "pointer",
-              zIndex: 100,
-              color: "#333",
+              zIndex: 10,
+              color: "#f8fafc",
               fontWeight: "bold",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.3)"
+              boxShadow: "0 15px 30px rgba(2,6,23,0.55)",
+              backdropFilter: "blur(8px)"
             }}
           >
             ›
@@ -246,16 +397,18 @@ const HomePage = () => {
             gap: "10px",
             zIndex: 100
           }}>
-            {carouselImages.map((_, index) => (
+            {carouselImages.map((imageData, index) => (
               <button
-                key={index}
+                key={`${imageData.tagline}-dot`}
                 onClick={() => goToSlide(index)}
                 style={{
-                  width: currentSlide === index ? "30px" : "10px",
-                  height: "10px",
-                  borderRadius: "5px",
-                  border: "none",
-                  background: currentSlide === index ? "#fff" : "rgba(255,255,255,0.5)",
+                  width: currentSlide === index ? "14px" : "10px",
+                  height: currentSlide === index ? "14px" : "10px",
+                  borderRadius: "50%",
+                  border: currentSlide === index ? "1px solid rgba(255,255,255,0.9)" : "1px solid transparent",
+                  background: currentSlide === index
+                    ? "linear-gradient(135deg, #c084fc, #7c3aed)"
+                    : "rgba(255,255,255,0.4)",
                   cursor: "pointer",
                   transition: "all 0.3s",
                   padding: 0

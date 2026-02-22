@@ -124,7 +124,7 @@ const excellenceBadges = [
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const carouselHeight = isMobile ? 280 : 480;
+  const carouselHeight = isMobile ? 300 : 520;
 
   useEffect(() => {
     if (typeof document === "undefined") {
@@ -221,19 +221,19 @@ const HomePage = () => {
           width: "100%", 
           maxWidth: "100%",
           height: `${carouselHeight}px`,
-          background: "linear-gradient(135deg, #020617, #0f172a)",
+          background: "linear-gradient(135deg, #020617, #111c44)",
           overflow: "hidden",
-          borderRadius: "24px",
+          borderRadius: "30px",
           border: "1px solid rgba(255,255,255,0.15)",
-          boxShadow: "0 45px 80px rgba(2,6,23,0.65)"
+          boxShadow: "0 45px 80px rgba(2,6,23,0.55)"
         }}>
           <div
             aria-hidden
             style={{
               position: "absolute",
-              inset: "-35%",
-              background: "radial-gradient(circle, rgba(124,58,237,0.35), transparent 60%)",
-              filter: "blur(50px)",
+              inset: "-30%",
+              background: "radial-gradient(circle at 30% 20%, rgba(99,102,241,0.4), transparent 60%)",
+              filter: "blur(60px)",
               zIndex: 0
             }}
           />
@@ -273,8 +273,8 @@ const HomePage = () => {
                 position: "absolute",
                 inset: 0,
                 opacity: currentSlide === index ? 1 : 0,
-                transform: currentSlide === index ? "scale(1)" : "scale(1.06)",
-                transition: "opacity 0.9s ease, transform 1.2s ease",
+                transform: currentSlide === index ? "scale(1)" : "scale(1.04)",
+                transition: "opacity 0.9s ease, transform 1.1s ease",
                 pointerEvents: currentSlide === index ? "auto" : "none",
                 zIndex: 1
               }}
@@ -292,7 +292,7 @@ const HomePage = () => {
                   objectPosition: isMobile
                     ? imageData.mobilePosition || "center"
                     : imageData.desktopPosition || imageData.mobilePosition || "center",
-                  filter: "saturate(1.05)",
+                  filter: currentSlide === index ? "saturate(1.05) contrast(1.02)" : "saturate(0.9)",
                   zIndex: 0
                 }}
               />
@@ -300,40 +300,53 @@ const HomePage = () => {
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background: `linear-gradient(115deg, rgba(2,6,23,0.1) 20%, ${imageData.accent}33 60%, rgba(2,6,23,0.85))`,
+                  background: "linear-gradient(180deg, rgba(2,6,23,0) 40%, rgba(2,6,23,0.85) 100%)",
                   zIndex: 1
                 }}
               />
               <div
                 style={{
                   position: "absolute",
-                  bottom: isMobile ? "1rem" : "2rem",
-                  left: isMobile ? "1rem" : "2rem",
-                  right: isMobile ? "1rem" : "auto",
-                  width: isMobile ? "auto" : "min(420px, 50%)",
-                  padding: isMobile ? "1rem 1.1rem" : "1.4rem 1.8rem",
-                  borderRadius: "24px",
-                  background: "rgba(2,6,23,0.65)",
-                  border: `1px solid ${imageData.accent}55`,
-                  color: "#f8fafc",
-                  backdropFilter: "blur(14px)",
-                  boxShadow: "0 25px 55px rgba(2,6,23,0.55)",
+                  top: isMobile ? "1rem" : "1.5rem",
+                  right: isMobile ? "1rem" : "1.8rem",
+                  padding: "0.4rem 0.8rem",
+                  borderRadius: "999px",
+                  background: "rgba(15,23,42,0.55)",
+                  border: `1px solid ${imageData.accent}77`,
+                  color: imageData.accent,
+                  fontSize: "0.8rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
                   zIndex: 2
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.6rem" }}>
-                  <span style={{ letterSpacing: "0.35em", fontSize: "0.65rem", textTransform: "uppercase", color: "rgba(248,250,252,0.8)" }}>
-                    {`${String(index + 1).padStart(2, "0")} / ${String(totalSlides).padStart(2, "0")}`}
-                  </span>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 600, color: imageData.accent }}>Live Campus</span>
-                </div>
-                <h3 style={{ margin: 0, fontSize: isMobile ? "1.15rem" : "1.45rem", fontWeight: 700, fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                Slide {String(index + 1).padStart(2, "0")}
+              </div>
+
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: isMobile ? "0.8rem" : "1.8rem",
+                  left: isMobile ? "0.8rem" : "1.8rem",
+                  width: isMobile ? "calc(100% - 1.6rem)" : "min(380px, 45%)",
+                  padding: isMobile ? "0.9rem 1rem" : "1.2rem 1.5rem",
+                  borderRadius: "22px",
+                  background: "rgba(255,255,255,0.18)",
+                  border: "1px solid rgba(255,255,255,0.35)",
+                  color: "#0f172a",
+                  backdropFilter: "blur(12px)",
+                  boxShadow: "0 25px 45px rgba(2,6,23,0.45)",
+                  zIndex: 2
+                }}
+              >
+                <p style={{ margin: 0, fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(15,23,42,0.65)" }}>
                   {imageData.tagline}
-                </h3>
-                <p style={{ margin: "0.6rem 0 0", fontSize: "0.95rem", lineHeight: 1.6, color: "rgba(248,250,252,0.85)" }}>
+                </p>
+                <p style={{ margin: "0.4rem 0 0", fontSize: isMobile ? "0.9rem" : "1rem", lineHeight: 1.6, color: "rgba(15,23,42,0.9)" }}>
                   {imageData.description}
                 </p>
-                <div style={{ width: "60px", height: "3px", borderRadius: "999px", background: imageData.accent, marginTop: "1rem" }} />
+                <div style={{ width: "48px", height: "3px", borderRadius: "999px", background: imageData.accent, marginTop: "0.8rem" }} />
               </div>
             </div>
           ))}
@@ -387,34 +400,69 @@ const HomePage = () => {
             ›
           </button>
 
-          {/* Dot Indicators */}
+          {/* Dot Indicators + Thumbnails */}
           <div style={{
             position: "absolute",
-            bottom: "20px",
+            bottom: isMobile ? "0.8rem" : "1rem",
             left: "50%",
             transform: "translateX(-50%)",
             display: "flex",
-            gap: "10px",
+            flexDirection: "column",
+            gap: "0.6rem",
+            alignItems: "center",
+            width: "90%",
             zIndex: 100
           }}>
-            {carouselImages.map((imageData, index) => (
-              <button
-                key={`${imageData.tagline}-dot`}
-                onClick={() => goToSlide(index)}
-                style={{
-                  width: currentSlide === index ? "14px" : "10px",
-                  height: currentSlide === index ? "14px" : "10px",
-                  borderRadius: "50%",
-                  border: currentSlide === index ? "1px solid rgba(255,255,255,0.9)" : "1px solid transparent",
-                  background: currentSlide === index
-                    ? "linear-gradient(135deg, #c084fc, #7c3aed)"
-                    : "rgba(255,255,255,0.4)",
-                  cursor: "pointer",
-                  transition: "all 0.3s",
-                  padding: 0
-                }}
-              />
-            ))}
+            <div style={{ display: "flex", gap: "10px" }}>
+              {carouselImages.map((imageData, index) => (
+                <button
+                  key={`${imageData.tagline}-dot`}
+                  onClick={() => goToSlide(index)}
+                  style={{
+                    width: currentSlide === index ? "14px" : "10px",
+                    height: currentSlide === index ? "14px" : "10px",
+                    borderRadius: "50%",
+                    border: currentSlide === index ? "1px solid rgba(255,255,255,0.9)" : "1px solid transparent",
+                    background: currentSlide === index
+                      ? "linear-gradient(135deg, #c084fc, #7c3aed)"
+                      : "rgba(255,255,255,0.4)",
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    padding: 0
+                  }}
+                />
+              ))}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: isMobile ? "0.35rem" : "0.6rem",
+                width: "100%",
+                overflowX: "auto",
+                paddingBottom: "0.2rem"
+              }}
+            >
+              {carouselImages.map((imageData, index) => (
+                <button
+                  key={`${imageData.tagline}-thumb`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`View slide ${index + 1}`}
+                  style={{
+                    flex: `0 0 ${isMobile ? 56 : 70}px`,
+                    height: isMobile ? "42px" : "50px",
+                    borderRadius: "14px",
+                    border: currentSlide === index ? `2px solid ${imageData.accent}` : "1px solid rgba(255,255,255,0.4)",
+                    backgroundImage: `url(${imageData.src})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    opacity: currentSlide === index ? 1 : 0.7,
+                    transition: "transform 0.3s, opacity 0.3s",
+                    transform: currentSlide === index ? "translateY(-2px)" : "none",
+                    cursor: "pointer"
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

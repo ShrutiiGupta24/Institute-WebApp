@@ -1,4 +1,4 @@
-from app.routes import auth, admin, student, teacher, payment, notification, contact
+from app.routes import auth, admin, student, teacher, payment, notification, contact, signup
 
 __all__ = [
 	"auth",
@@ -8,4 +8,5 @@ __all__ = [
 	"payment",
 	"notification",
 	"contact",
+	"signup",
 ]

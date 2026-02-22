@@ -9,7 +9,7 @@ const teachers = [
 	{
 		name: "Sudhanshu Shekhar",
 		subject: "Mathematics",
-		bio: "27+ years of teaching experience.",
+		bio: "30+ years of teaching experience.",
 		image: teacherPhoto,
 	},
 	{

@@ -18,23 +18,49 @@ import A16 from "../assets/A16.png";
 import A17 from "../assets/A17.png";
 
 const achievers = [
-  { id: 1, name: "Aarav Mehta", subject: "Physics", score: "98/100", image: A1 },
-  { id: 2, name: "Simran Kaur", subject: "Chemistry", score: "97/100", image: A2 },
-  { id: 4, name: "Rohan Gupta", subject: "Mathematics", score: "99/100", image: A4 },
-  { id: 5, name: "Priya Sharma", subject: "Biology", score: "98/100", image: A5 },
-  { id: 6, name: "Kabir Singh", subject: "English", score: "96/100", image: A6 },
-  { id: 7, name: "Ananya Jain", subject: "Computer Science", score: "97/100", image: A7 },
-  { id: 8, name: "Vikas Yadav", subject: "Accountancy", score: "99/100", image: A8 },
-  { id: 9, name: "Megha Sinha", subject: "Business Studies", score: "98/100", image: A9 },
-  { id: 10, name: "Rajat Kumar", subject: "JEE Mathematics", score: "99.5/100", image: A10 },
-  { id: 11, name: "Sneha Agarwal", subject: "JEE Physics", score: "99.2/100", image: A11 },
-  { id: 12, name: "Amit Joshi", subject: "CUET Economics", score: "98.7/100", image: A12 },
-  { id: 13, name: "Riya Kapoor", subject: "CUET English", score: "98.3/100", image: A13 },
-  { id: 14, name: "Sahil Verma", subject: "B.Com (P) Finance", score: "97.5/100", image: A14 },
-  { id: 15, name: "Nisha Singh", subject: "B.Com (H) Taxation", score: "97.2/100", image: A15 },
-  { id: 16, name: "Aniket Rao", subject: "Mathematics", score: "98.9/100", image: A16 },
-  { id: 17, name: "Ritika Mehta", subject: "Science", score: "99/100", image: A17 }
+  { id: 1, name: "Manik", subject: "Maths", score: "96/100", image: A1 },
+  { id: 2, name: "Isha", subject: "Maths", score: "96/100", image: A2 },
+  { id: 4, name: "Ansh", subject: "Maths", score: "95/100", image: A4 },
+  { id: 5, name: "Harsh", subject: "Maths", score: "95/100", image: A5 },
+  { id: 6, name: "Mitali", subject: "Maths", score: "95/100", image: A6 },
+  { id: 7, name: "Suhani", subject: "Maths", score: "95/100", image: A7 },
+  { id: 8, name: "Abhi", subject: "Maths", score: "97/100", image: A8 },
+  { id: 9, name: "Lakshay", subject: "Maths", score: "98/100", image: A9 },
+  { id: 10, name: "Bhavya", subject: "Maths", score: "98/100", image: A10 },
+  { id: 11, name: "Samarpreet", subject: "Maths", score: "94/100", image: A11 },
+  { id: 12, name: "Anuva", subjects: ["Maths", "Science"], score: ["85/100","94/100"], image: A12 },
+  { id: 13, name: "Riya", subject: "Maths", score: "94/100", image: A13 },
+  { id: 14, name: "Harsh", subject: "Maths", score: "94/100", image: A14 },
+  { id: 15, name: "Kush", subject: ["Maths", "Physics"], score: ["97/100","95/100"], image: A15 },
+  { id: 16, name: "Tanisha", subject: "Maths", score: "95/100", image: A16 },
+  { id: 17, name: "Mohit", subject: "Maths", score: "99/100", image: A17 }
 ];
+
+const getMathScore = (student) => {
+  const parseScore = (raw) => {
+    if (!raw && raw !== 0) return 0;
+    const value = String(raw).split("/")[0].trim();
+    return Number(value) || 0;
+  };
+
+  if (student.subject === "Maths") {
+    return parseScore(student.score);
+  }
+
+  if (Array.isArray(student.subjects) && Array.isArray(student.score)) {
+    const mathIndex = student.subjects.findIndex((sub) => String(sub).toLowerCase().includes("math"));
+    return mathIndex !== -1 ? parseScore(student.score[mathIndex]) : 0;
+  }
+
+  if (Array.isArray(student.subject) && Array.isArray(student.score)) {
+    const mathIndex = student.subject.findIndex((sub) => String(sub).toLowerCase().includes("math"));
+    return mathIndex !== -1 ? parseScore(student.score[mathIndex]) : 0;
+  }
+
+  return 0;
+};
+
+const sortedAchievers = [...achievers].sort((a, b) => getMathScore(b) - getMathScore(a));
 
 const backgroundStyle = {
   minHeight: "100vh",
@@ -103,7 +129,7 @@ const Achievers = () => {
         </p>
 
         <div style={gridStyle}>
-          {achievers.map((student) => (
+          {sortedAchievers.map((student) => (
             <div
               key={student.id}
               style={cardStyle}
@@ -117,7 +143,7 @@ const Achievers = () => {
               />
               <h3 style={{ margin: "0.5rem 0 0.25rem", fontSize: "1.15rem" }}>{student.name}</h3>
               <p style={{ margin: 0, fontSize: "0.95rem", color: "#374151" }}>
-                <strong>Subject:</strong> {student.subject}
+                <strong>{student.subjects ? "Subjects" : "Subject"}:</strong> {student.subjects ? student.subjects.join(", ") : student.subject}
               </p>
               <p style={{ margin: "0.25rem 0 0", fontSize: "0.95rem", color: "#374151" }}>
                 <strong>Score:</strong> {student.score}

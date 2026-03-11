@@ -4,37 +4,33 @@ const classData = [
   {
     class: "Class 9",
     displayName: "9",
-    subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "English"],
+    subjects: ["Mathematics", "Science","English"],
     duration: "Full Academic Year",
     timings: "Morning & Evening Batches Available",
-    fees: "₹15,000 per year",
     description: "Foundation building with focus on conceptual clarity and problem-solving skills."
   },
   {
     class: "Class 10",
     displayName: "10",
-    subjects: ["Mathematics", "Science", "Social Science", "English"],
+    subjects: ["Mathematics", "Science","English"],
     duration: "Full Academic Year",
     timings: "Morning & Evening Batches Available",
-    fees: "₹18,000 per year",
     description: "Board exam preparation with comprehensive study material and regular tests."
   },
   {
     class: "Class 11",
     displayName: "11",
-    subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Commerce"],
+    subjects: ["Science","Commerce"],
     duration: "Full Academic Year",
     timings: "Morning & Evening Batches Available",
-    fees: "₹25,000 per year",
     description: "Advanced concepts for JEE/NEET and board preparation with experienced faculty."
   },
   {
     class: "Class 12",
     displayName: "12",
-    subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "Commerce"],
+    subjects: ["Science","Commerce"],
     duration: "Full Academic Year",
     timings: "Morning & Evening Batches Available",
-    fees: "₹30,000 per year",
     description: "Intensive board and competitive exam preparation with mock tests and doubt sessions."
   },
   {
@@ -43,7 +39,6 @@ const classData = [
     subjects: ["Physics", "Chemistry", "Mathematics"],
     duration: "1-2 Years Program",
     timings: "Intensive Daily Classes",
-    fees: "₹40,000 per year",
     description: "Specialized coaching for JEE Main and Advanced with expert faculty, regular mock tests, and comprehensive study material."
   },
   {
@@ -52,7 +47,6 @@ const classData = [
     subjects: ["General Test", "Domain Specific Subjects", "Language"],
     duration: "6 Months - 1 Year",
     timings: "Weekend & Weekday Batches",
-    fees: "₹25,000 per year",
     description: "Complete preparation for Common University Entrance Test with focus on aptitude, reasoning, and domain knowledge."
   },
   {
@@ -61,7 +55,6 @@ const classData = [
     subjects: ["Accountancy", "Business Studies", "Economics", "Mathematics", "English"],
     duration: "Full Academic Year",
     timings: "Morning & Evening Batches Available",
-    fees: "₹20,000 per year",
     description: "Comprehensive commerce education for B.Com (Pass/Hons) students with practical learning and exam-focused approach."
   }
 ];

@@ -28,7 +28,7 @@ const achievers = [
   { id: 9, name: "Lakshay", subject: "Maths", score: "98/100", image: A9 },
   { id: 10, name: "Bhavya", subject: "Maths", score: "98/100", image: A10 },
   { id: 11, name: "Samarpreet", subject: "Maths", score: "94/100", image: A11 },
-  { id: 12, name: "Anuva", subjects: ["Maths", "Science"], score: ["85/100","94/100"], image: A12 },
+  { id: 12, name: "Anuva", subjects: ["Science"], score: ["94/100"], image: A12 },
   { id: 13, name: "Riya", subject: "Maths", score: "94/100", image: A13 },
   { id: 14, name: "Harsh", subject: "Maths", score: "94/100", image: A14 },
   { id: 15, name: "Kush", subject: ["Maths", "Physics"], score: ["97/100","95/100"], image: A15 },

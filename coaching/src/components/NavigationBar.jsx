@@ -32,7 +32,6 @@ const NavigationBar = () => {
     { path: "/about-teachers", label: "About Teachers" },
     { path: "/brochure", label: "Brochure" },
     { path: "/contact-us", label: "Contact Us" },
-    { path: "/about-batches", label: "About Batches" },
     { path: "/achievers", label: "Achievers" }
   ];
 

@@ -15,7 +15,7 @@ const valueChips = [
 
 const culturePillars = [
   { title: "Discipline", detail: "Morning accountability rituals keep every learner on tempo." },
-  { title: "Clarity", detail: "Whiteboard storytelling + tactile aids for every tricky concept." },
+  { title: "Clarity", detail: "Whiteboard storytelling + Intercative panel + tactile aids for every tricky concept." },
   { title: "Care", detail: "Weekly reflection circles so minds stay confident, not burnt out." }
 ];
 

@@ -142,12 +142,27 @@ const Achievers = () => {
                 style={{ width: "110px", height: "110px", borderRadius: "50%", objectFit: "cover", marginBottom: "0.75rem", border: "3px solid rgba(99,102,241,0.55)" }}
               />
               <h3 style={{ margin: "0.5rem 0 0.25rem", fontSize: "1.15rem" }}>{student.name}</h3>
-              <p style={{ margin: 0, fontSize: "0.95rem", color: "#374151" }}>
-                <strong>{student.subjects ? "Subjects" : "Subject"}:</strong> {student.subjects ? student.subjects.join(", ") : student.subject}
-              </p>
-              <p style={{ margin: "0.25rem 0 0", fontSize: "0.95rem", color: "#374151" }}>
-                <strong>Score:</strong> {student.score}
-              </p>
+              {Array.isArray(student.subjects) && Array.isArray(student.score) ? (
+                <div style={{ margin: 0, fontSize: "0.95rem", color: "#374151", textAlign: "left" }}>
+                  <strong>Subjects & Scores:</strong>
+                  <ul style={{ margin: "0.25rem 0 0", padding: "0 0 0 1rem" }}>
+                    {student.subjects.map((sub, idx) => (
+                      <li key={idx} style={{ marginBottom: "0.25rem" }}>
+                        <strong>{sub}:</strong> {student.score[idx] ?? "-"}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <>
+                  <p style={{ margin: 0, fontSize: "0.95rem", color: "#374151" }}>
+                    <strong>{student.subjects ? "Subjects" : "Subject"}:</strong> {student.subjects ? student.subjects.join(", ") : student.subject}
+                  </p>
+                  <p style={{ margin: "0.25rem 0 0", fontSize: "0.95rem", color: "#374151" }}>
+                    <strong>Score:</strong> {student.score}
+                  </p>
+                </>
+              )}
             </div>
           ))}
         </div>
